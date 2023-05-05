@@ -260,6 +260,135 @@ ggplot(top_month_df, aes(x = month, y = count.Freq, fill = month)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
+Compute the average price for each month then create a bar plot showing the average price for each month
+
+```{r}
+monthly_avg <- flight_data %>%
+  group_by(Journey_Month) %>%
+  summarise(avg_price = mean(Price))
+ggplot(monthly_avg, aes(x = Journey_Month, y = avg_price, fill = Journey_Month)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Journey Month vs Average Fare") +
+  xlab("Month of Journey") +
+  ylab("Average Fare") +
+  theme_bw()
+```
+
+Create a box plot showing the distribution of prices for each destination
+
+```{r}
+ggplot(flight_data, aes(x = Destination, y = Price, fill = Destination)) +
+  geom_boxplot() +
+  ggtitle("Destination vs Average Price") +
+  xlab("Destination") +
+  ylab("Average Price") +
+  theme_bw() +
+  coord_flip()
+```
+
+Source vs AveragePrice
+
+```{r}
+ggplot(train %>% arrange(desc(Price)), aes(Source, Price, fill = Source)) + 
+  geom_boxplot() + 
+  theme_bw() + 
+  labs(title = "Source vs Average Price")
+```
+
+Count of flights v/s Airline
+
+```{r}
+ggplot(train, aes(Airline, fill= Airline)) + 
+  geom_bar() + 
+  theme_bw() + 
+  labs(title = "Count of flights with different Airlines", 
+       x = "Airline", 
+       y = "Count of flights") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + 
+  geom_text(stat = "count", aes(label = ..count..), vjust = -0.5)
+```
+
+Airline vs AveragePrice
+
+```{r}
+ggplot(train %>% arrange(desc(Price)), aes(Airline, Price, fill= Airline)) + 
+  geom_boxplot() + 
+  theme_bw() + 
+  labs(title = "Airline vs Average Price")
+```
+
+duration v/s AveragePrice
+
+```{r}
+ggplot(train, aes(Duration, Price)) + 
+  geom_point() + 
+  theme_bw() + 
+  labs(title = "Duration vs Average Price")
+```
+
+Deptarure time v/s AveragePrice
+
+```{r}
+ggplot(train, aes(Dep_Time, Price, fill= Dep_Time)) + 
+  geom_bar(stat = "summary", fun = "mean") + 
+  theme_bw() + 
+  labs(title = "Departure Time vs Average Price", 
+       x = "Time of departure", 
+       y = "Price") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+```
+
+time of departure v/s count of flights
+
+```{r}
+top_time <- train %>% 
+  count(Dep_Time) %>% 
+  top_n(10, n)
+
+ggplot(top_time, aes(Dep_Time, n)) + 
+  geom_bar(stat = "identity", fill = "purple") + 
+  geom_text(aes(label = n), vjust = -0.5, color = "black", size = 4) +
+  theme_bw() + 
+  labs(title = "Top 10 Departure Time vs Count of Flights", 
+       x = "Time of departure", 
+       y = "Count of flights") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+```
+
+TIME OF ARRIVAL V/S average price
+
+```{r}
+ggplot(train, aes(Arrival_Time, Price)) + 
+  geom_bar(stat = "summary", fun = "mean", fill = "red") + 
+  theme_bw() + 
+  labs(title = "Time of Arrival vs Average Price", 
+       x = "Arrival Time", 
+       y = "Price") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+```
+
+total stops v/s average price
+
+```{r}
+ggplot(train, aes(Total_Stops, Price)) + 
+  geom_bar(stat = "summary", fun = "mean", fill = "steelblue") + 
+  theme_bw() + 
+  labs(title = "Number of Stops vs Average Price", 
+       x = "Total Stops", 
+       y = "Price") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+```
+
+WEEKDAY V/S average price
+
+```{r}
+ggplot(train, aes(weekday, Price)) + 
+  geom_bar(stat = "summary", fun = "mean", fill= "brown") +
+  theme_bw() + 
+  labs(title = "Weekday vs Average Price", x = "Weekday", y = "Price") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

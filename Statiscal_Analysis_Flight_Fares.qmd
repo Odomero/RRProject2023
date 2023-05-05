@@ -195,6 +195,12 @@ head(train, 2)
 str(train)
 ```
 
+Make a copy of the data frame
+
+```{r}
+flight_data <- train
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

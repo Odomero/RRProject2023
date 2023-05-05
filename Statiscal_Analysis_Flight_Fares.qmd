@@ -88,6 +88,43 @@ Now we can see the list of column names in our dataset
 names(train)
 ```
 
+##### CLEAN DURATION VARIABLE
+
+Converting duration into minutes. Firstly we define duration function
+
+```{r}
+duration <- function(test) {
+  test <- gsub("\\s+", "", test) # remove white spaces
+  total <- strsplit(test, split = "[a-zA-Z]+")[[1]] # split the string into substrings
+  to <- total[1]
+  hrs <- as.numeric(gsub("[^[:digit:]]", "", to)) * 60 # extract the hours and convert to minutes
+  if (length(total) == 2) {
+    mint <- as.numeric(gsub("[^[:digit:]]", "", total[2])) # extract the minutes
+    hrs <- hrs + mint
+  }
+  return(as.character(hrs))
+}
+
+```
+
+Apply duration function to the "Duration" column
+
+
+
+```{r}
+train$Duration <- sapply(train$Duration, duration)
+```
+
+
+
+Get number of unique values in "Duration" column
+
+
+
+```{r}
+n_distinct(train$Duration)
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

@@ -176,6 +176,25 @@ Then we apply stops function to the "Total_Stops" column
 train$Total_Stops <- sapply(train$Total_Stops, stops)
 ```
 
+##### FURTHER DATA CLEANING
+
+-   Replace "No info" with "No Info" in the "Additional_Info" column
+
+-   Drop the "Route" column
+
+```{r}
+train$Additional_Info <- ifelse(train$Additional_Info == "No info", "No Info", train$Additional_Info)
+
+train <- train[, !(names(train) %in% c("Route"))]
+```
+
+View the first two rows of the data and get information about the data frame
+
+```{r}
+head(train, 2)
+str(train)
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

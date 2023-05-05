@@ -62,6 +62,32 @@ train <- na.omit(train)
 
 ```
 
+##### CLEAN DATE OF JOURNEY VARIABLE
+
+To extract day, month, year, and weekday from Date of Journey
+
+```{r}
+train$Journey_Day <- day(dmy(train$Date_of_Journey))
+train$Journey_Month <- month(dmy(train$Date_of_Journey))
+train$Journey_Year <- year(dmy(train$Date_of_Journey))
+train$weekday <- wday(dmy(train$Date_of_Journey), label = TRUE)
+```
+
+
+
+
+Remove the Date_of_Journey column since it is no longer needed
+
+```{r}
+train$Date_of_Journey <- NULL
+```
+
+Now we can see the list of column names in our dataset
+
+```{r}
+names(train)
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

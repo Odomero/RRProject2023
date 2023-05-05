@@ -214,6 +214,14 @@ for (col in colnames(flight_data)) {
 }
 ```
 
+Replace values in the "Journey_Month" column
+
+```{r}
+flight_data$Journey_Month <- factor(flight_data$Journey_Month, levels = c(3, 4, 5, 6), labels = c("March", "April", "May", "June"))
+
+
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

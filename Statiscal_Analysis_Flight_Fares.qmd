@@ -222,6 +222,25 @@ flight_data$Journey_Month <- factor(flight_data$Journey_Month, levels = c(3, 4, 
 
 ```
 
+### EXPLORATORY DATA ANALYSIS
+
+This plot visualizes the total each month with total fare per month
+
+```{r}
+v1 <- ggplot(flight_data, aes(x = Journey_Month, y = Price, fill = Journey_Month)) + 
+  geom_bar(stat = "summary", fun = sum) + 
+  ggtitle("Monthv/sPrice") + 
+  ylab("Price") + 
+  xlab("Month of booking") + 
+  scale_fill_brewer(palette = "Set1") +  # add color scale
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE), 
+                     breaks = seq(0, 30000000, 5000000)) +
+  theme(axis.text.x = element_text(angle = 80, vjust = 0.5, hjust=1)) 
+
+v1 
+
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

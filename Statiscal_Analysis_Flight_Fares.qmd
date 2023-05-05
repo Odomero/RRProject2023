@@ -52,6 +52,16 @@ head(train, 5)
 
 
 
+##### HANDLING MISSING DATA
+
+To check for missing values and drop missing values
+
+```{r}
+print(colSums(is.na(train)))
+train <- na.omit(train)
+
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

@@ -35,8 +35,22 @@ library(scales)
 ##### LOAD DATASET
 
 ```{r}
-read_excel("/Users/macbookpro/Downloads/RR_finalProject/Data_Train.xlsx")
+train <- read_excel("/Users/macbookpro/Downloads/RR_finalProject/Data_Train.xlsx")
 ```
+
+To get dimension of our dataset, i.e., shape
+
+```{r}
+dim(train)
+```
+
+To print the top 5 rows of our dataset
+
+```{r}
+head(train, 5)
+```
+
+
 
 The `echo: false` option disables the printing of code (only output is displayed).
 

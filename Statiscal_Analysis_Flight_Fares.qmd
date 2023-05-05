@@ -158,6 +158,24 @@ train$Dep_Time <- sapply(train$Dep_Time, deparrtime)
 train$Arrival_Time <- sapply(train$Arrival_Time, deparrtime)
 ```
 
+##### CLEAN TOTAL STOPS VARIABLE
+
+Firstly, define stops function to Convert total_stops to 0,1,2,3 etc.
+
+```{r}
+stops <- function(x) {
+  ifelse(x == 'non-stop', '0', substr(x, 1, 1))
+}
+```
+
+Then we apply stops function to the "Total_Stops" column
+
+
+
+```{r}
+train$Total_Stops <- sapply(train$Total_Stops, stops)
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

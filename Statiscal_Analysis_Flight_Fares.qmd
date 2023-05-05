@@ -125,6 +125,39 @@ Get number of unique values in "Duration" column
 n_distinct(train$Duration)
 ```
 
+##### CLEAN DEP TIME AND ARRIVAL TIME VARIABLE
+
+To get whether its a morning,evening,night or afternoon flight from departure time & arrival time of the flight, we will define deparrtime function first
+
+```{r}
+deparrtime <- function(x) {
+  x <- gsub("\\s+", "", x) # remove white spaces
+  tt <- as.numeric(strsplit(x, split = ":")[[1]][1]) # extract the hour
+  if (tt >= 16 & tt < 21) {
+    x <- "Evening"
+  } else if (tt >= 21 | tt < 5) {
+    x <- "Night"
+  } else if (tt >= 5 & tt < 11) {
+    x <- "Morning"
+  } else if (tt >= 11 & tt < 16) {
+    x <- "Afternoon"
+  }
+  return(x)
+}
+
+```
+
+Then we will apply deparrtime function to the "Dep_Time" and "Arrival_Time" columns
+
+
+
+
+
+```{r}
+train$Dep_Time <- sapply(train$Dep_Time, deparrtime)
+train$Arrival_Time <- sapply(train$Arrival_Time, deparrtime)
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

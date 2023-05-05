@@ -224,6 +224,8 @@ flight_data$Journey_Month <- factor(flight_data$Journey_Month, levels = c(3, 4, 
 
 ### EXPLORATORY DATA ANALYSIS
 
+##### JOURNEY MONTH VS TOTAL FARE 
+
 This plot visualizes the total each month with total fare per month
 
 ```{r}

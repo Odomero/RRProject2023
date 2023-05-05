@@ -201,6 +201,19 @@ Make a copy of the data frame
 flight_data <- train
 ```
 
+Convert columns to the specified data types
+
+```{r}
+
+flight_data$Duration <- as.integer(flight_data$Duration) 
+
+for (col in colnames(flight_data)) {
+  if (is.character(flight_data[[col]])) {
+    flight_data[[col]] <- as.factor(flight_data[[col]])
+  }
+}
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

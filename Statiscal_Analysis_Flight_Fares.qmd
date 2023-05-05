@@ -243,6 +243,23 @@ v1
 
 ```
 
+##### COUNT OF FLIGHTS PER MONTH
+
+Firstly create a data frame from the top_month data then plot a bar plot
+
+```{r}
+top_month <- head(sort(table(flight_data$Journey_Month), decreasing = TRUE), 10)
+top_month_df <- data.frame(month = names(top_month), count = top_month)
+
+ggplot(top_month_df, aes(x = month, y = count.Freq, fill = month)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Count of flights per month") +
+  geom_text(aes(label = count.Freq), vjust = -0.5, color = "black", size = 4)+
+  ylab("Number of Bookings") +
+  xlab("Month") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
 The `echo: false` option disables the printing of code (only output is displayed).
 
 ## Correlation Analysis

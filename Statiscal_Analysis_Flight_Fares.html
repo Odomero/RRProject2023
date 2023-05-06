@@ -641,19 +641,19 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
 </div>
 <p><strong>Computing the correlation between <em>Duration</em> and <em>Price</em></strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE}</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> Price)) <span class="sc">+</span> </span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Duration (in minutes)"</span>, <span class="at">y =</span> <span class="st">"Price"</span>)</span>
 <span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p><em>From the plot above, the relationship might be linear. We might need to check if the data from each of the 2 variables follow a normal distribution?</em></p>
+<p><em>Shapiro test would have been perfect for this but to use it, sample size must be between 3 and 5000.</em></p>
+<p><em>We therefore look at the normality plot using the function: <strong>ggpubr::ggqqplot()</strong></em></p>
 </section>
 <section id="regression-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="regression-analysis">Regression Analysis</h2>

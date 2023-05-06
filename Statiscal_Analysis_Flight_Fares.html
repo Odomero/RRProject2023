@@ -581,46 +581,79 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
 <p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(train<span class="sc">$</span>Journey_Day)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Count of flights with different dates</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> Journey_Day)) <span class="sc">+</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Flight Count vs Date'</span>,</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Journey_Day'</span>,</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Count of flights'</span>) <span class="sc">+</span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">'count'</span>, <span class="fu">aes</span>(<span class="at">label =</span> ..count..), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>)</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 24  1  9 12 27 18  3 15  6 21</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Journey_Day v/s Average price</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> Journey_Day, <span class="at">y =</span> Price)) <span class="sc">+</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">'summary'</span>, <span class="at">fun =</span> <span class="st">'mean'</span>, <span class="at">fill =</span> <span class="st">'steelblue'</span>) <span class="sc">+</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Price of flights with different dates'</span>,</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Date'</span>,</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Price'</span>) <span class="sc">+</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
 </section>
 </section>
 </section>
 <section id="correlation-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-analysis">Correlation Analysis</h2>
+<p><strong>CORRELATION TESTS</strong></p>
+<p><strong>Adding additional libraries</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE, message=FALSE}</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(train, <span class="dv">5</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 13
+  Airline     Source   Destination Dep_Time Arrival_Time Duration Total_Stops
+  &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;      
+1 IndiGo      Banglore New Delhi   Night    Night        170      0          
+2 Air India   Kolkata  Banglore    Morning  Afternoon    445      2          
+3 Jet Airways Delhi    Cochin      Morning  Night        1140     2          
+4 IndiGo      Kolkata  Banglore    Evening  Night        325      1          
+5 IndiGo      Banglore New Delhi   Evening  Night        285      1          
+# ℹ 6 more variables: Additional_Info &lt;chr&gt;, Price &lt;dbl&gt;, Journey_Day &lt;int&gt;,
+#   Journey_Month &lt;dbl&gt;, Journey_Year &lt;dbl&gt;, weekday &lt;ord&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(train)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
+ $ Airline        : chr [1:10682] "IndiGo" "Air India" "Jet Airways" "IndiGo" ...
+ $ Source         : chr [1:10682] "Banglore" "Kolkata" "Delhi" "Kolkata" ...
+ $ Destination    : chr [1:10682] "New Delhi" "Banglore" "Cochin" "Banglore" ...
+ $ Dep_Time       : Named chr [1:10682] "Night" "Morning" "Morning" "Evening" ...
+  ..- attr(*, "names")= chr [1:10682] "22:20" "05:50" "09:25" "18:05" ...
+ $ Arrival_Time   : Named chr [1:10682] "Night" "Afternoon" "Night" "Night" ...
+  ..- attr(*, "names")= chr [1:10682] "01:10 22 Mar" "13:15" "04:25 10 Jun" "23:30" ...
+ $ Duration       : Named chr [1:10682] "170" "445" "1140" "325" ...
+  ..- attr(*, "names")= chr [1:10682] "2h 50m" "7h 25m" "19h" "5h 25m" ...
+ $ Total_Stops    : Named chr [1:10682] "0" "2" "2" "1" ...
+  ..- attr(*, "names")= chr [1:10682] "non-stop" "2 stops" "2 stops" "1 stop" ...
+ $ Additional_Info: chr [1:10682] "No Info" "No Info" "No Info" "No Info" ...
+ $ Price          : num [1:10682] 3897 7662 13882 6218 13302 ...
+ $ Journey_Day    : int [1:10682] 24 1 9 12 1 24 12 1 12 27 ...
+ $ Journey_Month  : num [1:10682] 3 5 6 5 3 6 3 3 3 5 ...
+ $ Journey_Year   : num [1:10682] 2019 2019 2019 2019 2019 ...
+ $ weekday        : Ord.factor w/ 7 levels "Sun"&lt;"Mon"&lt;"Tue"&lt;..: 1 4 1 1 6 2 3 6 3 2 ...
+ - attr(*, "na.action")= 'omit' Named int 9040
+  ..- attr(*, "names")= chr "9040"</code></pre>
+</div>
+</div>
+<p><strong>Computing the correlation between <em>Duration</em> and <em>Price</em></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> Price)) <span class="sc">+</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Duration (in minutes)"</span>, <span class="at">y =</span> <span class="st">"Price"</span>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="regression-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="regression-analysis">Regression Analysis</h2>

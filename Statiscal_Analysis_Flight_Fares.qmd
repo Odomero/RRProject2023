@@ -486,6 +486,21 @@ res3
 
 NOTE: **rho** is the Spearman's correlation coefficient. The correlation coefficient between *Duration* and *Price* is **0.69344** and the p-value is **\< 2.2e-16.**
 
+**Correlation Plot with Frequency Distribution**
+
+```{r}
+p <- ggplot(train, aes(x = Duration, y = Price)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  stat_cor(aes(label = paste("r = ", round(..r.., 2), "\n", "p = ", 
+                             round(..p.., 2))), label.x = 0.9, label.y = 0.9, 
+           size = 4, color = "red")
+
+ggMarginal(p, type = "histogram", bins = 20)
+```
+
+We have a p-value \< 0.05, hence we accept H1 and decide the target variable and continuous independent variable are correlated. **r = 0.51** means they are moderately related.
+
 ## Regression Analysis
 
 ## Conclusion

@@ -725,7 +725,7 @@ sample estimates:
 0.5066036 </code></pre>
 </div>
 </div>
-<p>The p-value of the test is <strong>2.2e-16</strong>, which is less than the significance level alpha = <strong>0.05</strong>.</p>
+<p>The p-value of the test is <strong>2.2e-16</strong>, which is less than the significance level alpha = 0.05.</p>
 <p>We can conclude that <em>Duration</em> and <em>Price</em> are significantly correlated with a correlation coefficient of <strong>0.5103211</strong> and p-value of <strong>&lt; 2.2e-16</strong> .</p>
 <p><strong>Kendall rank correlation test</strong></p>
 <div class="cell">
@@ -748,16 +748,10 @@ sample estimates:
 <p>NOTE: <strong>tau</strong> is the Kendall correlation coefficient. The correlation coefficient between <em>Duration</em> and <em>Price</em> is <strong>0.500113</strong> and the p-value is <strong>&lt; 2.2e-16</strong>.</p>
 <p><strong>Spearman rank correlation coefficient</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE}</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>res3 <span class="ot">&lt;-</span><span class="fu">cor.test</span>(train<span class="sc">$</span>Duration, train<span class="sc">$</span>Price,  <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in cor.test.default(train$Duration, train$Price, method = "spearman"):
-Cannot compute exact p-value with ties</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>res3</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>res3</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Spearman's rank correlation rho
@@ -771,6 +765,27 @@ sample estimates:
 </div>
 </div>
 <p>NOTE: <strong>rho</strong> is the Spearman’s correlation coefficient. The correlation coefficient between <em>Duration</em> and <em>Price</em> is <strong>0.69344</strong> and the p-value is <strong>&lt; 2.2e-16.</strong></p>
+<p><strong>Correlation Plot with Frequency Distribution</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> Price)) <span class="sc">+</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_cor</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"r = "</span>, <span class="fu">round</span>(..r.., <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"p = "</span>, </span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">round</span>(..p.., <span class="dv">2</span>))), <span class="at">label.x =</span> <span class="fl">0.9</span>, <span class="at">label.y =</span> <span class="fl">0.9</span>, </span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type =</span> <span class="st">"histogram"</span>, <span class="at">bins =</span> <span class="dv">20</span>)</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We have a p-value &lt; 0.05, hence we accept H1 and decide the target variable and continuous independent variable are correlated. <strong>r = 0.51</strong> means they are moderately related.</p>
 </section>
 <section id="regression-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="regression-analysis">Regression Analysis</h2>

@@ -19,7 +19,7 @@ Quarto enables you to weave together content and executable code into a finished
 
 ##### LOAD REQUIRED LIBRARIES
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 library(tidyverse)
 library(ggplot2)
 library(gridExtra)
@@ -35,7 +35,7 @@ library(scales)
 ##### LOAD DATASET
 
 ```{r}
-train <- read_excel("/Users/macbookpro/Downloads/RR_finalProject/Data_Train.xlsx")
+train <- read_excel("data/Flight_data.xlsx")
 ```
 
 To get dimension of our dataset, i.e., shape
@@ -49,8 +49,6 @@ To print the top 5 rows of our dataset
 ```{r}
 head(train, 5)
 ```
-
-
 
 ##### HANDLING MISSING DATA
 
@@ -72,9 +70,6 @@ train$Journey_Month <- month(dmy(train$Date_of_Journey))
 train$Journey_Year <- year(dmy(train$Date_of_Journey))
 train$weekday <- wday(dmy(train$Date_of_Journey), label = TRUE)
 ```
-
-
-
 
 Remove the Date_of_Journey column since it is no longer needed
 
@@ -109,17 +104,11 @@ duration <- function(test) {
 
 Apply duration function to the "Duration" column
 
-
-
 ```{r}
 train$Duration <- sapply(train$Duration, duration)
 ```
 
-
-
 Get number of unique values in "Duration" column
-
-
 
 ```{r}
 n_distinct(train$Duration)
@@ -149,10 +138,6 @@ deparrtime <- function(x) {
 
 Then we will apply deparrtime function to the "Dep_Time" and "Arrival_Time" columns
 
-
-
-
-
 ```{r}
 train$Dep_Time <- sapply(train$Dep_Time, deparrtime)
 train$Arrival_Time <- sapply(train$Arrival_Time, deparrtime)
@@ -169,8 +154,6 @@ stops <- function(x) {
 ```
 
 Then we apply stops function to the "Total_Stops" column
-
-
 
 ```{r}
 train$Total_Stops <- sapply(train$Total_Stops, stops)
@@ -224,7 +207,7 @@ flight_data$Journey_Month <- factor(flight_data$Journey_Month, levels = c(3, 4, 
 
 ### EXPLORATORY DATA ANALYSIS
 
-##### JOURNEY MONTH VS TOTAL FARE 
+##### JOURNEY MONTH VS TOTAL FARE
 
 This plot visualizes the total each month with total fare per month
 
@@ -389,9 +372,134 @@ ggplot(train, aes(weekday, Price)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
-
 ## Correlation Analysis
+
+```{r}
+# Converting duration into minutes
+# Define duration function
+duration <- function(test) {
+  test <- gsub("\\s+", "", test) # remove white spaces
+  total <- strsplit(test, split = "[a-zA-Z]+")[[1]] # split the string into substrings
+  to <- total[1]
+  hrs <- as.numeric(gsub("[^[:digit:]]", "", to)) * 60 # extract the hours and convert to minutes
+  if (length(total) == 2) {
+    mint <- as.numeric(gsub("[^[:digit:]]", "", total[2])) # extract the minutes
+    hrs <- hrs + mint
+  }
+  return(as.character(hrs))
+}
+```
+
+```{r}
+# Apply duration function to the "Duration" column
+train$Duration <- sapply(train$Duration, duration)
+```
+
+```{r}
+train$Duration <- as.integer(train$Duration)
+```
+
+## Correlation Tests
+
+##### Adding additional libraries
+
+```{r warning=FALSE, message=FALSE}
+library(ggpubr)
+library(ggExtra)
+library(devtools)
+
+```
+
+```{r}
+head(train, 5)
+```
+
+```{r}
+str(train)
+```
+
+##### Plotting the correlation between *Duration* and *Price*
+
+```{r message=FALSE}
+ggplot(train, aes(x = Duration, y = Price)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", color = "red") +
+  labs(x = "Duration (in minutes)", y = "Price")
+```
+
+*From the plot above, the relationship might be linear. We might need to check if the data from each of the 2 variables follow a normal distribution?*
+
+*Shapiro test would have been perfect for this but to use it, sample size must be between 3 and 5000.*
+
+*We therefore look at the normality plot using the function: ggpubr::ggqqplot()*
+
+##### Plotting to check for normality 
+
+###### Duration
+
+```{r}
+ggqqplot(train$Duration, ylab = "Duration")
+```
+
+###### Price
+
+```{r}
+ggqqplot(train$Price, ylab = "Price")
+```
+
+From the normality plots, we conclude that both populations may come from normal distributions.
+
+##### correlation coefficient interpretation
+
+-1 indicates a strong negative correlation : this means that every time x increases, y decreases
+
+0 means that there is no association between the two variables (x and y)
+
+1 indicates a strong positive correlation : this means that y increases with x
+
+##### Pearson correlation test
+
+```{r}
+res <- cor.test(train$Duration, train$Price, method = "pearson")
+res
+```
+
+The p-value of the test is **2.2e-16**, which is less than the significance level alpha = 0.05.
+
+We can conclude that *Duration* and *Price* are significantly correlated with a correlation coefficient of **0.5103211** and p-value of **\< 2.2e-16**.
+
+##### Kendall rank correlation test
+
+```{r}
+res2 <- cor.test(train$Duration, train$Price,  method="kendall")
+res2
+```
+
+NOTE: **tau** is the Kendall correlation coefficient. The correlation coefficient between *Duration* and *Price* is **0.500113** and the p-value is **\< 2.2e-16**.
+
+##### Spearman rank correlation coefficient
+
+```{r warning=FALSE}
+res3 <-cor.test(train$Duration, train$Price,  method = "spearman")
+res3
+```
+
+NOTE: **rho** is the Spearman's correlation coefficient. The correlation coefficient between *Duration* and *Price* is **0.69344** and the p-value is **\< 2.2e-16.**
+
+##### Correlation Plot with Frequency Distribution
+
+```{r message=FALSE}
+p <- ggplot(train, aes(x = Duration, y = Price)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  stat_cor(aes(label = paste("r = ", round(..r.., 2), "\n", "p = ", 
+                             round(..p.., 2))), label.x = 0.9, label.y = 0.9, 
+           size = 4, color = "red")
+
+ggMarginal(p, type = "histogram", bins = 20)
+```
+
+We have a p-value \< 0.05, hence we accept H1 and decide the target variable and continuous independent variable are correlated. **r = 0.51** means they are moderately related.
 
 ## Regression Analysis
 

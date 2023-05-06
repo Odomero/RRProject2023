@@ -374,6 +374,31 @@ ggplot(train, aes(weekday, Price)) +
 
 ## Correlation Analysis
 
+```{r}
+# Converting duration into minutes
+# Define duration function
+duration <- function(test) {
+  test <- gsub("\\s+", "", test) # remove white spaces
+  total <- strsplit(test, split = "[a-zA-Z]+")[[1]] # split the string into substrings
+  to <- total[1]
+  hrs <- as.numeric(gsub("[^[:digit:]]", "", to)) * 60 # extract the hours and convert to minutes
+  if (length(total) == 2) {
+    mint <- as.numeric(gsub("[^[:digit:]]", "", total[2])) # extract the minutes
+    hrs <- hrs + mint
+  }
+  return(as.character(hrs))
+}
+```
+
+```{r}
+# Apply duration function to the "Duration" column
+train$Duration <- sapply(train$Duration, duration)
+```
+
+```{r}
+train$Duration <- as.integer(train$Duration)
+```
+
 **CORRELATION TESTS**
 
 **Adding additional libraries**
@@ -408,38 +433,23 @@ ggplot(train, aes(x = Duration, y = Price)) +
 
 *We therefore look at the normality plot using the function: **ggpubr::ggqqplot()***
 
-```{r}
-# Converting duration into minutes
-# Define duration function
-duration <- function(test) {
-  test <- gsub("\\s+", "", test) # remove white spaces
-  total <- strsplit(test, split = "[a-zA-Z]+")[[1]] # split the string into substrings
-  to <- total[1]
-  hrs <- as.numeric(gsub("[^[:digit:]]", "", to)) * 60 # extract the hours and convert to minutes
-  if (length(total) == 2) {
-    mint <- as.numeric(gsub("[^[:digit:]]", "", total[2])) # extract the minutes
-    hrs <- hrs + mint
-  }
-  return(as.character(hrs))
-}
-```
-
-```{r}
-# Apply duration function to the "Duration" column
-train$Duration <- sapply(train$Duration, duration)
-```
-
 **Plotting to check for normality**
 
 Duration
 
-```{}
+```{r}
+ggqqplot(train$Duration, ylab = "Duration")
 ```
 
 Price
 
 ```{r}
 ggqqplot(train$Price, ylab = "Price")
+```
+
+```{r}
+res <- cor.test(train$Duration, train$Price, method = "pearson")
+res
 ```
 
 ## Regression Analysis

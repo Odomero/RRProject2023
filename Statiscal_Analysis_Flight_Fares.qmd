@@ -418,7 +418,7 @@ head(train, 5)
 str(train)
 ```
 
-**Computing the correlation between *Duration* and *Price***
+**Plotting the correlation between *Duration* and *Price***
 
 ```{r message=FALSE}
 ggplot(train, aes(x = Duration, y = Price)) + 
@@ -431,26 +431,60 @@ ggplot(train, aes(x = Duration, y = Price)) +
 
 *Shapiro test would have been perfect for this but to use it, sample size must be between 3 and 5000.*
 
-*We therefore look at the normality plot using the function: **ggpubr::ggqqplot()***
+*We therefore look at the normality plot using the function: ggpubr::ggqqplot()*
 
 **Plotting to check for normality**
 
-Duration
+**Duration**
 
 ```{r}
 ggqqplot(train$Duration, ylab = "Duration")
 ```
 
-Price
+**Price**
 
 ```{r}
 ggqqplot(train$Price, ylab = "Price")
 ```
 
+From the normality plots, we conclude that both populations may come from normal distributions.
+
+**correlation coefficient interpretation**
+
+-1 indicates a strong negative correlation : this means that every time x increases, y decreases
+
+0 means that there is no association between the two variables (x and y)
+
+1 indicates a strong positive correlation : this means that y increases with x
+
+**Pearson correlation test**
+
 ```{r}
 res <- cor.test(train$Duration, train$Price, method = "pearson")
 res
 ```
+
+The p-value of the test is **2.2e-16**, which is less than the significance level alpha = 0.05.
+
+We can conclude that *Duration* and *Price* are significantly correlated with a correlation coefficient of **0.5103211** and p-value of **\< 2.2e-16** .
+
+**Kendall rank correlation test**
+
+```{r}
+res2 <- cor.test(train$Duration, train$Price,  method="kendall")
+res2
+```
+
+NOTE: **tau** is the Kendall correlation coefficient. The correlation coefficient between *Duration* and *Price* is **0.500113** and the p-value is **\< 2.2e-16**.
+
+**Spearman rank correlation coefficient**
+
+```{r warning=FALSE}
+res3 <-cor.test(train$Duration, train$Price,  method = "spearman")
+res3
+```
+
+NOTE: **rho** is the Spearman's correlation coefficient. The correlation coefficient between *Duration* and *Price* is **0.69344** and the p-value is **\< 2.2e-16.**
 
 ## Regression Analysis
 

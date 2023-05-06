@@ -666,7 +666,7 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
   ..- attr(*, "names")= chr "9040"</code></pre>
 </div>
 </div>
-<p><strong>Computing the correlation between <em>Duration</em> and <em>Price</em></strong></p>
+<p><strong>Plotting the correlation between <em>Duration</em> and <em>Price</em></strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE}</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> Price)) <span class="sc">+</span> </span>
@@ -680,9 +680,9 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
 </div>
 <p><em>From the plot above, the relationship might be linear. We might need to check if the data from each of the 2 variables follow a normal distribution?</em></p>
 <p><em>Shapiro test would have been perfect for this but to use it, sample size must be between 3 and 5000.</em></p>
-<p><em>We therefore look at the normality plot using the function: <strong>ggpubr::ggqqplot()</strong></em></p>
+<p><em>We therefore look at the normality plot using the function: ggpubr::ggqqplot()</em></p>
 <p><strong>Plotting to check for normality</strong></p>
-<p>Duration</p>
+<p><strong>Duration</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(train<span class="sc">$</span>Duration, <span class="at">ylab =</span> <span class="st">"Duration"</span>)</span>
@@ -691,7 +691,7 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
 <p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Price</p>
+<p><strong>Price</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(train<span class="sc">$</span>Price, <span class="at">ylab =</span> <span class="st">"Price"</span>)</span>
@@ -700,6 +700,12 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
 <p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>From the normality plots, we conclude that both populations may come from normal distributions.</p>
+<p><strong>correlation coefficient interpretation</strong></p>
+<p>-1 indicates a strong negative correlation : this means that every time x increases, y decreases</p>
+<p>0 means that there is no association between the two variables (x and y)</p>
+<p>1 indicates a strong positive correlation : this means that y increases with x</p>
+<p><strong>Pearson correlation test</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(train<span class="sc">$</span>Duration, train<span class="sc">$</span>Price, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
@@ -719,6 +725,52 @@ sample estimates:
 0.5066036 </code></pre>
 </div>
 </div>
+<p>The p-value of the test is <strong>2.2e-16</strong>, which is less than the significance level alpha = <strong>0.05</strong>.</p>
+<p>We can conclude that <em>Duration</em> and <em>Price</em> are significantly correlated with a correlation coefficient of <strong>0.5103211</strong> and p-value of <strong>&lt; 2.2e-16</strong> .</p>
+<p><strong>Kendall rank correlation test</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(train<span class="sc">$</span>Duration, train<span class="sc">$</span>Price,  <span class="at">method=</span><span class="st">"kendall"</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>res2</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kendall's rank correlation tau
+
+data:  train$Duration and train$Price
+z = 76.873, p-value &lt; 2.2e-16
+alternative hypothesis: true tau is not equal to 0
+sample estimates:
+      tau 
+0.4996434 </code></pre>
+</div>
+</div>
+<p>NOTE: <strong>tau</strong> is the Kendall correlation coefficient. The correlation coefficient between <em>Duration</em> and <em>Price</em> is <strong>0.500113</strong> and the p-value is <strong>&lt; 2.2e-16</strong>.</p>
+<p><strong>Spearman rank correlation coefficient</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>res3 <span class="ot">&lt;-</span><span class="fu">cor.test</span>(train<span class="sc">$</span>Duration, train<span class="sc">$</span>Price,  <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in cor.test.default(train$Duration, train$Price, method = "spearman"):
+Cannot compute exact p-value with ties</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>res3</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  train$Duration and train$Price
+S = 6.239e+10, p-value &lt; 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.6928812 </code></pre>
+</div>
+</div>
+<p>NOTE: <strong>rho</strong> is the Spearman’s correlation coefficient. The correlation coefficient between <em>Duration</em> and <em>Price</em> is <strong>0.69344</strong> and the p-value is <strong>&lt; 2.2e-16.</strong></p>
 </section>
 <section id="regression-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="regression-analysis">Regression Analysis</h2>

@@ -399,9 +399,9 @@ train$Duration <- sapply(train$Duration, duration)
 train$Duration <- as.integer(train$Duration)
 ```
 
-**CORRELATION TESTS**
+## Correlation Tests
 
-**Adding additional libraries**
+##### Adding additional libraries
 
 ```{r warning=FALSE, message=FALSE}
 library(ggpubr)
@@ -418,7 +418,7 @@ head(train, 5)
 str(train)
 ```
 
-**Plotting the correlation between *Duration* and *Price***
+##### Plotting the correlation between *Duration* and *Price*
 
 ```{r message=FALSE}
 ggplot(train, aes(x = Duration, y = Price)) + 
@@ -433,15 +433,15 @@ ggplot(train, aes(x = Duration, y = Price)) +
 
 *We therefore look at the normality plot using the function: ggpubr::ggqqplot()*
 
-**Plotting to check for normality**
+##### Plotting to check for normality 
 
-**Duration**
+###### Duration
 
 ```{r}
 ggqqplot(train$Duration, ylab = "Duration")
 ```
 
-**Price**
+###### Price
 
 ```{r}
 ggqqplot(train$Price, ylab = "Price")
@@ -449,7 +449,7 @@ ggqqplot(train$Price, ylab = "Price")
 
 From the normality plots, we conclude that both populations may come from normal distributions.
 
-**correlation coefficient interpretation**
+##### correlation coefficient interpretation
 
 -1 indicates a strong negative correlation : this means that every time x increases, y decreases
 
@@ -457,7 +457,7 @@ From the normality plots, we conclude that both populations may come from normal
 
 1 indicates a strong positive correlation : this means that y increases with x
 
-**Pearson correlation test**
+##### Pearson correlation test
 
 ```{r}
 res <- cor.test(train$Duration, train$Price, method = "pearson")
@@ -466,9 +466,9 @@ res
 
 The p-value of the test is **2.2e-16**, which is less than the significance level alpha = 0.05.
 
-We can conclude that *Duration* and *Price* are significantly correlated with a correlation coefficient of **0.5103211** and p-value of **\< 2.2e-16** .
+We can conclude that *Duration* and *Price* are significantly correlated with a correlation coefficient of **0.5103211** and p-value of **\< 2.2e-16**.
 
-**Kendall rank correlation test**
+##### Kendall rank correlation test
 
 ```{r}
 res2 <- cor.test(train$Duration, train$Price,  method="kendall")
@@ -477,7 +477,7 @@ res2
 
 NOTE: **tau** is the Kendall correlation coefficient. The correlation coefficient between *Duration* and *Price* is **0.500113** and the p-value is **\< 2.2e-16**.
 
-**Spearman rank correlation coefficient**
+##### Spearman rank correlation coefficient
 
 ```{r warning=FALSE}
 res3 <-cor.test(train$Duration, train$Price,  method = "spearman")
@@ -486,9 +486,9 @@ res3
 
 NOTE: **rho** is the Spearman's correlation coefficient. The correlation coefficient between *Duration* and *Price* is **0.69344** and the p-value is **\< 2.2e-16.**
 
-**Correlation Plot with Frequency Distribution**
+##### Correlation Plot with Frequency Distribution
 
-```{r}
+```{r message=FALSE}
 p <- ggplot(train, aes(x = Duration, y = Price)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +

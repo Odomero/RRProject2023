@@ -614,8 +614,11 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>Duration <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(train<span class="sc">$</span>Duration)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>CORRELATION TESTS</strong></p>
-<p><strong>Adding additional libraries</strong></p>
+</section>
+<section id="correlation-tests" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-tests">CORRELATION TESTS</h2>
+<section id="adding-additional-libraries" class="level5">
+<h5 class="anchored" data-anchor-id="adding-additional-libraries">Adding additional libraries</h5>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE, message=FALSE}</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
@@ -666,7 +669,9 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
   ..- attr(*, "names")= chr "9040"</code></pre>
 </div>
 </div>
-<p><strong>Plotting the correlation between <em>Duration</em> and <em>Price</em></strong></p>
+</section>
+<section id="plotting-the-correlation-between-duration-and-price" class="level5">
+<h5 class="anchored" data-anchor-id="plotting-the-correlation-between-duration-and-price">Plotting the correlation between <em>Duration</em> and <em>Price</em></h5>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE}</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> Price)) <span class="sc">+</span> </span>
@@ -681,8 +686,11 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
 <p><em>From the plot above, the relationship might be linear. We might need to check if the data from each of the 2 variables follow a normal distribution?</em></p>
 <p><em>Shapiro test would have been perfect for this but to use it, sample size must be between 3 and 5000.</em></p>
 <p><em>We therefore look at the normality plot using the function: ggpubr::ggqqplot()</em></p>
-<p><strong>Plotting to check for normality</strong></p>
-<p><strong>Duration</strong></p>
+</section>
+<section id="plotting-to-check-for-normality" class="level5">
+<h5 class="anchored" data-anchor-id="plotting-to-check-for-normality">Plotting to check for normality</h5>
+<section id="duration" class="level6">
+<h6 class="anchored" data-anchor-id="duration">Duration</h6>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(train<span class="sc">$</span>Duration, <span class="at">ylab =</span> <span class="st">"Duration"</span>)</span>
@@ -691,7 +699,9 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
 <p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><strong>Price</strong></p>
+</section>
+<section id="price" class="level6">
+<h6 class="anchored" data-anchor-id="price">Price</h6>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(train<span class="sc">$</span>Price, <span class="at">ylab =</span> <span class="st">"Price"</span>)</span>
@@ -701,11 +711,16 @@ tibble [10,682 × 13] (S3: tbl_df/tbl/data.frame)
 </div>
 </div>
 <p>From the normality plots, we conclude that both populations may come from normal distributions.</p>
-<p><strong>correlation coefficient interpretation</strong></p>
+</section>
+</section>
+<section id="correlation-coefficient-interpretation" class="level5">
+<h5 class="anchored" data-anchor-id="correlation-coefficient-interpretation">correlation coefficient interpretation</h5>
 <p>-1 indicates a strong negative correlation : this means that every time x increases, y decreases</p>
 <p>0 means that there is no association between the two variables (x and y)</p>
 <p>1 indicates a strong positive correlation : this means that y increases with x</p>
-<p><strong>Pearson correlation test</strong></p>
+</section>
+<section id="pearson-correlation-test" class="level5">
+<h5 class="anchored" data-anchor-id="pearson-correlation-test">Pearson correlation test</h5>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(train<span class="sc">$</span>Duration, train<span class="sc">$</span>Price, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
@@ -726,8 +741,10 @@ sample estimates:
 </div>
 </div>
 <p>The p-value of the test is <strong>2.2e-16</strong>, which is less than the significance level alpha = 0.05.</p>
-<p>We can conclude that <em>Duration</em> and <em>Price</em> are significantly correlated with a correlation coefficient of <strong>0.5103211</strong> and p-value of <strong>&lt; 2.2e-16</strong> .</p>
-<p><strong>Kendall rank correlation test</strong></p>
+<p>We can conclude that <em>Duration</em> and <em>Price</em> are significantly correlated with a correlation coefficient of <strong>0.5103211</strong> and p-value of <strong>&lt; 2.2e-16</strong>.</p>
+</section>
+<section id="kendall-rank-correlation-test" class="level5">
+<h5 class="anchored" data-anchor-id="kendall-rank-correlation-test">Kendall rank correlation test</h5>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(train<span class="sc">$</span>Duration, train<span class="sc">$</span>Price,  <span class="at">method=</span><span class="st">"kendall"</span>)</span>
@@ -746,7 +763,9 @@ sample estimates:
 </div>
 </div>
 <p>NOTE: <strong>tau</strong> is the Kendall correlation coefficient. The correlation coefficient between <em>Duration</em> and <em>Price</em> is <strong>0.500113</strong> and the p-value is <strong>&lt; 2.2e-16</strong>.</p>
-<p><strong>Spearman rank correlation coefficient</strong></p>
+</section>
+<section id="spearman-rank-correlation-coefficient" class="level5">
+<h5 class="anchored" data-anchor-id="spearman-rank-correlation-coefficient">Spearman rank correlation coefficient</h5>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE}</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>res3 <span class="ot">&lt;-</span><span class="fu">cor.test</span>(train<span class="sc">$</span>Duration, train<span class="sc">$</span>Price,  <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
@@ -765,9 +784,11 @@ sample estimates:
 </div>
 </div>
 <p>NOTE: <strong>rho</strong> is the Spearman’s correlation coefficient. The correlation coefficient between <em>Duration</em> and <em>Price</em> is <strong>0.69344</strong> and the p-value is <strong>&lt; 2.2e-16.</strong></p>
-<p><strong>Correlation Plot with Frequency Distribution</strong></p>
+</section>
+<section id="correlation-plot-with-frequency-distribution" class="level5">
+<h5 class="anchored" data-anchor-id="correlation-plot-with-frequency-distribution">Correlation Plot with Frequency Distribution</h5>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE}</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> Price)) <span class="sc">+</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
@@ -777,15 +798,12 @@ sample estimates:
 <span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type =</span> <span class="st">"histogram"</span>, <span class="at">bins =</span> <span class="dv">20</span>)</span>
 <span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'
-`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We have a p-value &lt; 0.05, hence we accept H1 and decide the target variable and continuous independent variable are correlated. <strong>r = 0.51</strong> means they are moderately related.</p>
+</section>
 </section>
 <section id="regression-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="regression-analysis">Regression Analysis</h2>

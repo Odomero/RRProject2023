@@ -372,7 +372,30 @@ ggplot(train, aes(weekday, Price)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+```{r}
+unique(train$Journey_Day)
+
+
+# Count of flights with different dates
+ggplot(train, aes(x = Journey_Day)) +
+  geom_bar(colour = "black", fill = "blue") +
+  labs(title = 'Flight Count vs Date',
+       x = 'Journey_Day',
+       y = 'Count of flights') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  geom_text(stat = 'count', aes(label = ..count..), vjust = -0.5)
+
+```
+
+```{r}
+# Journey_Day v/s Average price
+ggplot(train, aes(x = Journey_Day, y = Price)) +
+  geom_bar(stat = 'summary', fun = 'mean', fill = 'steelblue') +
+  labs(title = 'Price of flights with different dates',
+       x = 'Date',
+       y = 'Price') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
 
 ## Correlation Analysis
 

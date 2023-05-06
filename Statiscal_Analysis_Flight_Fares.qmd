@@ -19,7 +19,7 @@ Quarto enables you to weave together content and executable code into a finished
 
 ##### LOAD REQUIRED LIBRARIES
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 library(tidyverse)
 library(ggplot2)
 library(gridExtra)
@@ -35,7 +35,7 @@ library(scales)
 ##### LOAD DATASET
 
 ```{r}
-train <- read_excel("/Users/macbookpro/Downloads/RR_finalProject/Data_Train.xlsx")
+train <- read_excel("data/Flight_data.xlsx")
 ```
 
 To get dimension of our dataset, i.e., shape
@@ -49,8 +49,6 @@ To print the top 5 rows of our dataset
 ```{r}
 head(train, 5)
 ```
-
-
 
 ##### HANDLING MISSING DATA
 
@@ -72,9 +70,6 @@ train$Journey_Month <- month(dmy(train$Date_of_Journey))
 train$Journey_Year <- year(dmy(train$Date_of_Journey))
 train$weekday <- wday(dmy(train$Date_of_Journey), label = TRUE)
 ```
-
-
-
 
 Remove the Date_of_Journey column since it is no longer needed
 
@@ -109,17 +104,11 @@ duration <- function(test) {
 
 Apply duration function to the "Duration" column
 
-
-
 ```{r}
 train$Duration <- sapply(train$Duration, duration)
 ```
 
-
-
 Get number of unique values in "Duration" column
-
-
 
 ```{r}
 n_distinct(train$Duration)
@@ -149,10 +138,6 @@ deparrtime <- function(x) {
 
 Then we will apply deparrtime function to the "Dep_Time" and "Arrival_Time" columns
 
-
-
-
-
 ```{r}
 train$Dep_Time <- sapply(train$Dep_Time, deparrtime)
 train$Arrival_Time <- sapply(train$Arrival_Time, deparrtime)
@@ -169,8 +154,6 @@ stops <- function(x) {
 ```
 
 Then we apply stops function to the "Total_Stops" column
-
-
 
 ```{r}
 train$Total_Stops <- sapply(train$Total_Stops, stops)
@@ -224,7 +207,7 @@ flight_data$Journey_Month <- factor(flight_data$Journey_Month, levels = c(3, 4, 
 
 ### EXPLORATORY DATA ANALYSIS
 
-##### JOURNEY MONTH VS TOTAL FARE 
+##### JOURNEY MONTH VS TOTAL FARE
 
 This plot visualizes the total each month with total fare per month
 

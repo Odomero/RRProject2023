@@ -13,7 +13,7 @@ execute:
 
 ## Introduction.
 
-This project converts and extends a Python notebook on "**Statistical Analysis & EDA for flight fare**" using R and Quarto notebook. The original notebook can be found on Kaggle at https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook
+This project converts and extends a Python notebook on "**Statistical Analysis & EDA for flight fare**" using R and Quarto notebook. The original notebook can be found on Kaggle at <https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook>
 
 ##### LOAD REQUIRED LIBRARIES
 
@@ -35,8 +35,7 @@ library(tseries)
 ##### LOAD DATASET
 
 ```{r}
-setwd("/Users/omokahfe/Desktop/")
-flight_data <- read_excel("ResearchClass/RRProject2023/data/Flight_data.xlsx")
+flight_data <- read_excel("data/Flight_data.xlsx")
 ```
 
 The flight dataset comprises 10,683 observations with 11 variables (10 independent variables and 1 target variable)
@@ -577,6 +576,6 @@ In comparison to March and Friday,prices are lower on other months and week days
 
 ## Conclusion
 
-This project extensively used R to carry out data cleaning, exploratory data analysis using data visualization and correlation analysis, as well as data modelling using simple linear regression model-lm().
+This project extensively used R to carry out data cleaning, feature engineering, exploratory data analysis using data visualization and correlation analysis, as well as data modelling using simple linear regression model-lm(). The dataset had a total of 10,682 observations with 10 independent variables and a continuous dependent variable (flight prices).
 
 Variables such as weekday, month, journey day, total stops, duration, arrival time, source to destination, and airlines significantly impact flight prices.

@@ -137,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="introduction." class="level2">
 <h2 class="anchored" data-anchor-id="introduction.">Introduction.</h2>
-<p>This project converts and extends a Python notebook on “<strong>Statistical Analysis &amp; EDA for flight fare</strong>” using R and Quarto notebook. The original notebook can be found on Kaggle at https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook</p>
+<p>This project converts and extends a Python notebook on “<strong>Statistical Analysis &amp; EDA for flight fare</strong>” using R and Quarto notebook. The original notebook can be found on Kaggle at <a href="https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook" class="uri">https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook</a></p>
 <section id="load-required-libraries" class="level5">
 <h5 class="anchored" data-anchor-id="load-required-libraries">LOAD REQUIRED LIBRARIES</h5>
 <div class="cell">
@@ -161,9 +161,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h5 class="anchored" data-anchor-id="load-dataset">LOAD DATASET</h5>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/omokahfe/Desktop/"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>flight_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"ResearchClass/RRProject2023/data/Flight_data.xlsx"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>flight_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/Flight_data.xlsx"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The flight dataset comprises 10,683 observations with 11 variables (10 independent variables and 1 target variable)</p>
 <div class="cell">
@@ -1089,7 +1088,7 @@ Note:                                                         *p&lt;0.1; **p&lt;
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>This project extensively used R to carry out data cleaning, exploratory data analysis using data visualization and correlation analysis, as well as data modelling using simple linear regression model-lm().</p>
+<p>This project extensively used R to carry out data cleaning, feature engineering, exploratory data analysis using data visualization and correlation analysis, as well as data modelling using simple linear regression model-lm(). The dataset had a total of 10,682 observations with 10 independent variables and a continuous dependent variable (flight prices).</p>
 <p>Variables such as weekday, month, journey day, total stops, duration, arrival time, source to destination, and airlines significantly impact flight prices.</p>
 </section>
 

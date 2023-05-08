@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Anjolaoluwa Olatunbosun">
+<meta name="author" content="Ayoola Ayetigbo">
+<meta name="author" content="Odomero Omokahfe">
+<meta name="dcterms.date" content="2023-04-28">
+
+<title>Statistical Analysis of Flight Fares</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Statiscal_Analysis_Flight_Fares_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Statiscal_Analysis_Flight_Fares_files/libs/quarto-html/quarto.js"></script>
+<script src="Statiscal_Analysis_Flight_Fares_files/libs/quarto-html/popper.min.js"></script>
+<script src="Statiscal_Analysis_Flight_Fares_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Statiscal_Analysis_Flight_Fares_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Statiscal_Analysis_Flight_Fares_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Statiscal_Analysis_Flight_Fares_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Statiscal_Analysis_Flight_Fares_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Statiscal_Analysis_Flight_Fares_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Statiscal_Analysis_Flight_Fares_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Statistical Analysis of Flight Fares</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Anjolaoluwa Olatunbosun </p>
+             <p>Ayoola Ayetigbo </p>
+             <p>Odomero Omokahfe </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 28, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction." class="level2">
+<h2 class="anchored" data-anchor-id="introduction.">Introduction.</h2>
+<p>This project converts and extends a Python notebook on “<strong>Statistical Analysis &amp; EDA for flight fare</strong>” using R and Quarto notebook. The original notebook can be found on Kaggle at https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook</p>
+<section id="load-required-libraries" class="level5">
+<h5 class="anchored" data-anchor-id="load-required-libraries">LOAD REQUIRED LIBRARIES</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE, message=FALSE}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(png)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-dataset" class="level5">
+<h5 class="anchored" data-anchor-id="load-dataset">LOAD DATASET</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/omokahfe/Desktop/"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>flight_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"ResearchClass/RRProject2023/data/Flight_data.xlsx"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The flight dataset comprises 10,683 observations with 11 variables (10 independent variables and 1 target variable)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(flight_data)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10683    11</code></pre>
+</div>
+</div>
+<p>To print the top 5 rows of our dataset</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flight_data, <span class="dv">5</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 11
+  Airline   Date_…¹ Source Desti…² Route Dep_T…³ Arriv…⁴ Durat…⁵ Total…⁶ Addit…⁷
+  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
+1 IndiGo    24/03/… Bangl… New De… BLR … 22:20   01:10 … 2h 50m  non-st… No info
+2 Air India 1/05/2… Kolka… Banglo… CCU … 05:50   13:15   7h 25m  2 stops No info
+3 Jet Airw… 9/06/2… Delhi  Cochin  DEL … 09:25   04:25 … 19h     2 stops No info
+4 IndiGo    12/05/… Kolka… Banglo… CCU … 18:05   23:30   5h 25m  1 stop  No info
+5 IndiGo    01/03/… Bangl… New De… BLR … 16:50   21:35   4h 45m  1 stop  No info
+# … with 1 more variable: Price &lt;dbl&gt;, and abbreviated variable names
+#   ¹​Date_of_Journey, ²​Destination, ³​Dep_Time, ⁴​Arrival_Time, ⁵​Duration,
+#   ⁶​Total_Stops, ⁷​Additional_Info</code></pre>
+</div>
+</div>
+</section>
+<section id="handling-missing-data" class="level5">
+<h5 class="anchored" data-anchor-id="handling-missing-data">HANDLING MISSING DATA</h5>
+<p>To check for missing values and drop missing values</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(flight_data)))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>flight_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(flight_data)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Airline Date_of_Journey          Source     Destination           Route 
+              0               0               0               0               1 
+       Dep_Time    Arrival_Time        Duration     Total_Stops Additional_Info 
+              0               0               0               1               0 
+          Price 
+              0 </code></pre>
+</div>
+</div>
+</section>
+<section id="clean-date-of-journey-variable" class="level5">
+<h5 class="anchored" data-anchor-id="clean-date-of-journey-variable">CLEAN DATE OF JOURNEY VARIABLE</h5>
+<p>To extract day, month, year, and weekday from Date of Journey</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Journey_Day <span class="ot">&lt;-</span> <span class="fu">day</span>(<span class="fu">dmy</span>(flight_data<span class="sc">$</span>Date_of_Journey))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Journey_Month <span class="ot">&lt;-</span> <span class="fu">month</span>(<span class="fu">dmy</span>(flight_data<span class="sc">$</span>Date_of_Journey))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Journey_Year <span class="ot">&lt;-</span> <span class="fu">year</span>(<span class="fu">dmy</span>(flight_data<span class="sc">$</span>Date_of_Journey))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>weekday <span class="ot">&lt;-</span> <span class="fu">wday</span>(<span class="fu">dmy</span>(flight_data<span class="sc">$</span>Date_of_Journey), <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(flight_data<span class="sc">$</span>Journey_Year)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(flight_data<span class="sc">$</span>Journey_Month)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 2019 
+10682 
+
+   3    4    5    6 
+2724 1079 3465 3414 </code></pre>
+</div>
+</div>
+<p>Remove the Date_of_Journey and Journey_Year column</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Date_of_Journey <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Journey_Year <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>“New Delhi” and “Delhi” seems to be same location.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Destination[flight_data<span class="sc">$</span>Destination <span class="sc">==</span> <span class="st">"New Delhi"</span>] <span class="ot">&lt;-</span> <span class="st">"Delhi"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can see the list of column names in our dataset</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(flight_data)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Airline"         "Source"          "Destination"     "Route"          
+ [5] "Dep_Time"        "Arrival_Time"    "Duration"        "Total_Stops"    
+ [9] "Additional_Info" "Price"           "Journey_Day"     "Journey_Month"  
+[13] "weekday"        </code></pre>
+</div>
+</div>
+</section>
+<section id="clean-duration-variable" class="level5">
+<h5 class="anchored" data-anchor-id="clean-duration-variable">CLEAN DURATION VARIABLE</h5>
+<p>Converting duration into minutes. Firstly we define duration function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>duration <span class="ot">&lt;-</span> <span class="cf">function</span>(test) {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  test <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s+"</span>, <span class="st">""</span>, test) <span class="co"># remove white spaces</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  total <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(test, <span class="at">split =</span> <span class="st">"[a-zA-Z]+"</span>)[[<span class="dv">1</span>]] <span class="co"># split the string into substrings</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  to <span class="ot">&lt;-</span> total[<span class="dv">1</span>]</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  hrs <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">"[^[:digit:]]"</span>, <span class="st">""</span>, to)) <span class="sc">*</span> <span class="dv">60</span> <span class="co"># extract the hours and convert to minutes</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(total) <span class="sc">==</span> <span class="dv">2</span>) {</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    mint <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">"[^[:digit:]]"</span>, <span class="st">""</span>, total[<span class="dv">2</span>])) <span class="co"># extract the minutes</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    hrs <span class="ot">&lt;-</span> hrs <span class="sc">+</span> mint</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">as.character</span>(hrs))</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Apply duration function to the “Duration” column</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Duration <span class="ot">&lt;-</span> <span class="fu">sapply</span>(flight_data<span class="sc">$</span>Duration, duration)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Get number of unique values in “Duration” column</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(flight_data<span class="sc">$</span>Duration)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 367</code></pre>
+</div>
+</div>
+</section>
+<section id="clean-dep-time-and-arrival-time-variable" class="level5">
+<h5 class="anchored" data-anchor-id="clean-dep-time-and-arrival-time-variable">CLEAN DEP TIME AND ARRIVAL TIME VARIABLE</h5>
+<p>To get whether its a morning,evening,night or afternoon flight from departure time &amp; arrival time of the flight, we will define deparrtime function first</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>deparrtime <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s+"</span>, <span class="st">""</span>, x) <span class="co"># remove white spaces</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  tt <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">strsplit</span>(x, <span class="at">split =</span> <span class="st">":"</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]) <span class="co"># extract the hour</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (tt <span class="sc">&gt;=</span> <span class="dv">16</span> <span class="sc">&amp;</span> tt <span class="sc">&lt;</span> <span class="dv">21</span>) {</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="st">"Evening"</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (tt <span class="sc">&gt;=</span> <span class="dv">21</span> <span class="sc">|</span> tt <span class="sc">&lt;</span> <span class="dv">5</span>) {</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="st">"Night"</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (tt <span class="sc">&gt;=</span> <span class="dv">5</span> <span class="sc">&amp;</span> tt <span class="sc">&lt;</span> <span class="dv">11</span>) {</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="st">"Morning"</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (tt <span class="sc">&gt;=</span> <span class="dv">11</span> <span class="sc">&amp;</span> tt <span class="sc">&lt;</span> <span class="dv">16</span>) {</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="st">"Afternoon"</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we will apply deparrtime function to the “Dep_Time” and “Arrival_Time” columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Dep_Time <span class="ot">&lt;-</span> <span class="fu">sapply</span>(flight_data<span class="sc">$</span>Dep_Time, deparrtime)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Arrival_Time <span class="ot">&lt;-</span> <span class="fu">sapply</span>(flight_data<span class="sc">$</span>Arrival_Time, deparrtime)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="clean-total-stops-variable" class="level5">
+<h5 class="anchored" data-anchor-id="clean-total-stops-variable">CLEAN TOTAL STOPS VARIABLE</h5>
+<p>Firstly, define stops function to Convert total_stops to 0,1,2,3 etc.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>stops <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(x <span class="sc">==</span> <span class="st">'non-stop'</span>, <span class="st">'0'</span>, <span class="fu">substr</span>(x, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we apply stops function to the “Total_Stops” column</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Total_Stops <span class="ot">&lt;-</span> <span class="fu">sapply</span>(flight_data<span class="sc">$</span>Total_Stops, stops)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="further-data-cleaning" class="level5">
+<h5 class="anchored" data-anchor-id="further-data-cleaning">FURTHER DATA CLEANING</h5>
+<ul>
+<li><p>Replace “No info” with “No Info” in the “Additional_Info” column</p></li>
+<li><p>Drop the “Route” column</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Additional_Info <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(flight_data<span class="sc">$</span>Additional_Info <span class="sc">==</span> <span class="st">"No info"</span>, <span class="st">"No Info"</span>, flight_data<span class="sc">$</span>Additional_Info)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>flight_data <span class="ot">&lt;-</span> flight_data[, <span class="sc">!</span>(<span class="fu">names</span>(flight_data) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Route"</span>))]</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>View the first two rows of the data and get information about the data frame</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flight_data, <span class="dv">2</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(flight_data)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 12
+  Airline   Source Desti…¹ Dep_T…² Arriv…³ Durat…⁴ Total…⁵ Addit…⁶ Price Journ…⁷
+  &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;   &lt;int&gt;
+1 IndiGo    Bangl… Delhi   Night   Night   170     0       No Info  3897      24
+2 Air India Kolka… Banglo… Morning Aftern… 445     2       No Info  7662       1
+# … with 2 more variables: Journey_Month &lt;dbl&gt;, weekday &lt;ord&gt;, and abbreviated
+#   variable names ¹​Destination, ²​Dep_Time, ³​Arrival_Time, ⁴​Duration,
+#   ⁵​Total_Stops, ⁶​Additional_Info, ⁷​Journey_Day
+tibble [10,682 × 12] (S3: tbl_df/tbl/data.frame)
+ $ Airline        : chr [1:10682] "IndiGo" "Air India" "Jet Airways" "IndiGo" ...
+ $ Source         : chr [1:10682] "Banglore" "Kolkata" "Delhi" "Kolkata" ...
+ $ Destination    : chr [1:10682] "Delhi" "Banglore" "Cochin" "Banglore" ...
+ $ Dep_Time       : Named chr [1:10682] "Night" "Morning" "Morning" "Evening" ...
+  ..- attr(*, "names")= chr [1:10682] "22:20" "05:50" "09:25" "18:05" ...
+ $ Arrival_Time   : Named chr [1:10682] "Night" "Afternoon" "Night" "Night" ...
+  ..- attr(*, "names")= chr [1:10682] "01:10 22 Mar" "13:15" "04:25 10 Jun" "23:30" ...
+ $ Duration       : Named chr [1:10682] "170" "445" "1140" "325" ...
+  ..- attr(*, "names")= chr [1:10682] "2h 50m" "7h 25m" "19h" "5h 25m" ...
+ $ Total_Stops    : Named chr [1:10682] "0" "2" "2" "1" ...
+  ..- attr(*, "names")= chr [1:10682] "non-stop" "2 stops" "2 stops" "1 stop" ...
+ $ Additional_Info: chr [1:10682] "No Info" "No Info" "No Info" "No Info" ...
+ $ Price          : num [1:10682] 3897 7662 13882 6218 13302 ...
+ $ Journey_Day    : int [1:10682] 24 1 9 12 1 24 12 1 12 27 ...
+ $ Journey_Month  : num [1:10682] 3 5 6 5 3 6 3 3 3 5 ...
+ $ weekday        : Ord.factor w/ 7 levels "Sun"&lt;"Mon"&lt;"Tue"&lt;..: 1 4 1 1 6 2 3 6 3 2 ...
+ - attr(*, "na.action")= 'omit' Named int 9040
+  ..- attr(*, "names")= chr "9040"</code></pre>
+</div>
+</div>
+<p>Make a copy of the data frame</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>flight_df <span class="ot">&lt;-</span> flight_data</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Convert columns to the specified data types</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>flight_df<span class="sc">$</span>Duration <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(flight_df<span class="sc">$</span>Duration) </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> <span class="fu">colnames</span>(flight_df)) {</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.character</span>(flight_df[[col]])) {</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    flight_df[[col]] <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(flight_df[[col]])</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Replace values in the “Journey_Month” column</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>flight_df<span class="sc">$</span>Journey_Month <span class="ot">&lt;-</span> <span class="fu">factor</span>(flight_df<span class="sc">$</span>Journey_Month, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"March"</span>, <span class="st">"April"</span>, <span class="st">"May"</span>, <span class="st">"June"</span>))</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exploratory-data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="exploratory-data-analysis">EXPLORATORY DATA ANALYSIS</h3>
+<section id="journey-month-vs-total-fare" class="level5">
+<h5 class="anchored" data-anchor-id="journey-month-vs-total-fare">JOURNEY MONTH VS TOTAL FARE</h5>
+<p>This plot visualizes the total each month with total fare per month</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(flight_df, <span class="fu">aes</span>(<span class="at">x =</span> Journey_Month, <span class="at">y =</span> Price, <span class="at">fill =</span> Journey_Month)) <span class="sc">+</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> sum) <span class="sc">+</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Monthv/sPrice"</span>) <span class="sc">+</span> </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Price"</span>) <span class="sc">+</span> </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Month of booking"</span>) <span class="sc">+</span> </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span>  <span class="co"># add color scale</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">format</span>(x, <span class="at">scientific =</span> <span class="cn">FALSE</span>), </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30000000</span>, <span class="dv">5000000</span>)) <span class="sc">+</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">80</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>)) </span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>v1 </span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="count-of-flights-per-month" class="level5">
+<h5 class="anchored" data-anchor-id="count-of-flights-per-month">COUNT OF FLIGHTS PER MONTH</h5>
+<p>Firstly create a data frame from the top_month data then plot a bar plot</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>top_month <span class="ot">&lt;-</span> <span class="fu">head</span>(<span class="fu">sort</span>(<span class="fu">table</span>(flight_df<span class="sc">$</span>Journey_Month), <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">10</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>top_month_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">month =</span> <span class="fu">names</span>(top_month), <span class="at">count =</span> top_month)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_month_df, <span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> count.Freq, <span class="at">fill =</span> month)) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Count of flights per month"</span>) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> count.Freq), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Number of Bookings"</span>) <span class="sc">+</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Month"</span>) <span class="sc">+</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Compute the average price for each month then create a bar plot showing the average price for each month</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>monthly_avg <span class="ot">&lt;-</span> flight_df <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Journey_Month) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_price =</span> <span class="fu">mean</span>(Price))</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(monthly_avg, <span class="fu">aes</span>(<span class="at">x =</span> Journey_Month, <span class="at">y =</span> avg_price, <span class="at">fill =</span> Journey_Month)) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Journey Month vs Average Fare"</span>) <span class="sc">+</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Month of Journey"</span>) <span class="sc">+</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Average Fare"</span>) <span class="sc">+</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Create a box plot showing the distribution of prices for each destination</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_df, <span class="fu">aes</span>(<span class="at">x =</span> Destination, <span class="at">y =</span> Price, <span class="at">fill =</span> Destination)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Destination vs Average Price"</span>) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Destination"</span>) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Average Price"</span>) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Source vs AveragePrice</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_data <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Price)), <span class="fu">aes</span>(Source, Price, <span class="at">fill =</span> Source)) <span class="sc">+</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Source vs Average Price"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Count of flights v/s Airline</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_data, <span class="fu">aes</span>(Airline, <span class="at">fill=</span> Airline)) <span class="sc">+</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Count of flights with different Airlines"</span>, </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Airline"</span>, </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count of flights"</span>) <span class="sc">+</span> </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span> </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">"count"</span>, <span class="fu">aes</span>(<span class="at">label =</span> ..count..), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.
+ℹ Please use `after_stat(count)` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Airline vs AveragePrice</p>
+<p>Outliers can be spotted in flight prices.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_data <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Price)), <span class="fu">aes</span>(Airline, Price, <span class="at">fill=</span> Airline)) <span class="sc">+</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Airline vs Average Price"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>duration v/s AveragePrice</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_df, <span class="fu">aes</span>(Duration, Price)) <span class="sc">+</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Duration vs Average Price"</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Deptarure time v/s AveragePrice</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_data, <span class="fu">aes</span>(Dep_Time, Price, <span class="at">fill=</span> Dep_Time)) <span class="sc">+</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> <span class="st">"mean"</span>) <span class="sc">+</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Departure Time vs Average Price"</span>, </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Time of departure"</span>, </span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Price"</span>) <span class="sc">+</span> </span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>time of departure v/s count of flights</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>top_time <span class="ot">&lt;-</span> flight_data <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Dep_Time) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>, n)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_time, <span class="fu">aes</span>(Dep_Time, n)) <span class="sc">+</span> </span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"purple"</span>) <span class="sc">+</span> </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> n), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 10 Departure Time vs Count of Flights"</span>, </span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Time of departure"</span>, </span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count of flights"</span>) <span class="sc">+</span> </span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>TIME OF ARRIVAL V/S average price</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_data, <span class="fu">aes</span>(Arrival_Time, Price)) <span class="sc">+</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Time of Arrival vs Average Price"</span>, </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Arrival Time"</span>, </span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Price"</span>) <span class="sc">+</span> </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>total stops v/s average price</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_data, <span class="fu">aes</span>(Total_Stops, Price)) <span class="sc">+</span> </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span> </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Stops vs Average Price"</span>, </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Total Stops"</span>, </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Price"</span>) <span class="sc">+</span> </span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>WEEKDAY V/S average price</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_data, <span class="fu">aes</span>(weekday, Price)) <span class="sc">+</span> </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">fill=</span> <span class="st">"brown"</span>) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Weekday vs Average Price"</span>, <span class="at">x =</span> <span class="st">"Weekday"</span>, <span class="at">y =</span> <span class="st">"Price"</span>) <span class="sc">+</span> </span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="correlation-tests" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-tests">Correlation Tests</h2>
+<section id="adding-additional-libraries" class="level5">
+<h5 class="anchored" data-anchor-id="adding-additional-libraries">Adding additional libraries</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE, message=FALSE}</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flight_data, <span class="dv">5</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 12
+  Airline   Source Desti…¹ Dep_T…² Arriv…³ Durat…⁴ Total…⁵ Addit…⁶ Price Journ…⁷
+  &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;   &lt;int&gt;
+1 IndiGo    Bangl… Delhi   Night   Night   170     0       No Info  3897      24
+2 Air India Kolka… Banglo… Morning Aftern… 445     2       No Info  7662       1
+3 Jet Airw… Delhi  Cochin  Morning Night   1140    2       No Info 13882       9
+4 IndiGo    Kolka… Banglo… Evening Night   325     1       No Info  6218      12
+5 IndiGo    Bangl… Delhi   Evening Night   285     1       No Info 13302       1
+# … with 2 more variables: Journey_Month &lt;dbl&gt;, weekday &lt;ord&gt;, and abbreviated
+#   variable names ¹​Destination, ²​Dep_Time, ³​Arrival_Time, ⁴​Duration,
+#   ⁵​Total_Stops, ⁶​Additional_Info, ⁷​Journey_Day</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(flight_data)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [10,682 × 12] (S3: tbl_df/tbl/data.frame)
+ $ Airline        : chr [1:10682] "IndiGo" "Air India" "Jet Airways" "IndiGo" ...
+ $ Source         : chr [1:10682] "Banglore" "Kolkata" "Delhi" "Kolkata" ...
+ $ Destination    : chr [1:10682] "Delhi" "Banglore" "Cochin" "Banglore" ...
+ $ Dep_Time       : Named chr [1:10682] "Night" "Morning" "Morning" "Evening" ...
+  ..- attr(*, "names")= chr [1:10682] "22:20" "05:50" "09:25" "18:05" ...
+ $ Arrival_Time   : Named chr [1:10682] "Night" "Afternoon" "Night" "Night" ...
+  ..- attr(*, "names")= chr [1:10682] "01:10 22 Mar" "13:15" "04:25 10 Jun" "23:30" ...
+ $ Duration       : Named chr [1:10682] "170" "445" "1140" "325" ...
+  ..- attr(*, "names")= chr [1:10682] "2h 50m" "7h 25m" "19h" "5h 25m" ...
+ $ Total_Stops    : Named chr [1:10682] "0" "2" "2" "1" ...
+  ..- attr(*, "names")= chr [1:10682] "non-stop" "2 stops" "2 stops" "1 stop" ...
+ $ Additional_Info: chr [1:10682] "No Info" "No Info" "No Info" "No Info" ...
+ $ Price          : num [1:10682] 3897 7662 13882 6218 13302 ...
+ $ Journey_Day    : int [1:10682] 24 1 9 12 1 24 12 1 12 27 ...
+ $ Journey_Month  : num [1:10682] 3 5 6 5 3 6 3 3 3 5 ...
+ $ weekday        : Ord.factor w/ 7 levels "Sun"&lt;"Mon"&lt;"Tue"&lt;..: 1 4 1 1 6 2 3 6 3 2 ...
+ - attr(*, "na.action")= 'omit' Named int 9040
+  ..- attr(*, "names")= chr "9040"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>flight_data<span class="sc">$</span>Duration <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(flight_data<span class="sc">$</span>Duration)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-the-correlation-between-duration-and-price" class="level5">
+<h5 class="anchored" data-anchor-id="plotting-the-correlation-between-duration-and-price">Plotting the correlation between <em>Duration</em> and <em>Price</em></h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE}</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flight_data, <span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> Price)) <span class="sc">+</span> </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Duration (in minutes)"</span>, <span class="at">y =</span> <span class="st">"Price"</span>)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><em>From the plot above, the relationship might be linear. We might need to check if the data from each of the 2 variables follow a normal distribution?</em></p>
+<p><em>Shapiro test would have been perfect for this but to use it, sample size must be between 3 and 5000.</em></p>
+<p><em>We therefore look at the normality plot using the function: ggpubr::ggqqplot()</em></p>
+</section>
+<section id="plotting-to-check-for-normality" class="level5">
+<h5 class="anchored" data-anchor-id="plotting-to-check-for-normality">Plotting to check for normality</h5>
+<section id="duration" class="level6">
+<h6 class="anchored" data-anchor-id="duration">Duration</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE}</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(flight_data<span class="sc">$</span>Duration, <span class="at">ylab =</span> <span class="st">"Duration"</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="price" class="level6">
+<h6 class="anchored" data-anchor-id="price">Price</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE}</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(flight_data<span class="sc">$</span>Price, <span class="at">ylab =</span> <span class="st">"Price"</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From the normality plots, we conclude that both populations may come from normal distributions.</p>
+</section>
+</section>
+<section id="correlation-coefficient-interpretation" class="level5">
+<h5 class="anchored" data-anchor-id="correlation-coefficient-interpretation">correlation coefficient interpretation</h5>
+<p>-1 indicates a strong negative correlation : this means that every time x increases, y decreases</p>
+<p>0 means that there is no association between the two variables (x and y)</p>
+<p>1 indicates a strong positive correlation : this means that y increases with x</p>
+</section>
+<section id="pearson-correlation-test" class="level5">
+<h5 class="anchored" data-anchor-id="pearson-correlation-test">Pearson correlation test</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(flight_data<span class="sc">$</span>Duration, flight_data<span class="sc">$</span>Price, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>res</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  flight_data$Duration and flight_data$Price
+t = 60.723, df = 10680, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.4923698 0.5205664
+sample estimates:
+      cor 
+0.5066036 </code></pre>
+</div>
+</div>
+<p>The p-value of the test is <strong>2.2e-16</strong>, which is less than the significance level alpha = 0.05.</p>
+<p>We can conclude that <em>Duration</em> and <em>Price</em> are significantly correlated with a correlation coefficient of <strong>0.5103211</strong> and p-value of <strong>&lt; 2.2e-16</strong>.</p>
+</section>
+<section id="kendall-rank-correlation-test" class="level5">
+<h5 class="anchored" data-anchor-id="kendall-rank-correlation-test">Kendall rank correlation test</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(flight_data<span class="sc">$</span>Duration, flight_data<span class="sc">$</span>Price,  <span class="at">method=</span><span class="st">"kendall"</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>res2</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kendall's rank correlation tau
+
+data:  flight_data$Duration and flight_data$Price
+z = 76.873, p-value &lt; 2.2e-16
+alternative hypothesis: true tau is not equal to 0
+sample estimates:
+      tau 
+0.4996434 </code></pre>
+</div>
+</div>
+<p>NOTE: <strong>tau</strong> is the Kendall correlation coefficient. The correlation coefficient between <em>Duration</em> and <em>Price</em> is <strong>0.500113</strong> and the p-value is <strong>&lt; 2.2e-16</strong>.</p>
+</section>
+<section id="spearman-rank-correlation-coefficient" class="level5">
+<h5 class="anchored" data-anchor-id="spearman-rank-correlation-coefficient">Spearman rank correlation coefficient</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE}</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>res3 <span class="ot">&lt;-</span><span class="fu">cor.test</span>(flight_data<span class="sc">$</span>Duration, flight_data<span class="sc">$</span>Price,  <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>res3</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  flight_data$Duration and flight_data$Price
+S = 6.239e+10, p-value &lt; 2.2e-16
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.6928812 </code></pre>
+</div>
+</div>
+<p>NOTE: <strong>rho</strong> is the Spearman’s correlation coefficient. The correlation coefficient between <em>Duration</em> and <em>Price</em> is <strong>0.69344</strong> and the p-value is <strong>&lt; 2.2e-16.</strong></p>
+</section>
+<section id="correlation-plot-with-frequency-distribution" class="level5">
+<h5 class="anchored" data-anchor-id="correlation-plot-with-frequency-distribution">Correlation Plot with Frequency Distribution</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE}</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(flight_data, <span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> Price)) <span class="sc">+</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_cor</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"r = "</span>, <span class="fu">round</span>(..r.., <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"p = "</span>, </span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">round</span>(..p.., <span class="dv">2</span>))), <span class="at">label.x =</span> <span class="fl">0.9</span>, <span class="at">label.y =</span> <span class="fl">0.9</span>, </span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type =</span> <span class="st">"histogram"</span>, <span class="at">bins =</span> <span class="dv">20</span>)</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statiscal_Analysis_Flight_Fares_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We have a p-value &lt; 0.05, hence we accept H1 and decide the target variable and continuous independent variable are correlated. <strong>r = 0.51</strong> means they are moderately related.</p>
+</section>
+</section>
+<section id="regression-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="regression-analysis">Regression Analysis</h2>
+<p><strong>Further Data Preparation</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>flight_df<span class="sc">$</span>weekday <span class="ot">&lt;-</span> <span class="fu">as.character</span>(flight_df<span class="sc">$</span>weekday)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co"># let's generate logarithm of flight prices and duration</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(flight_df)</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>flight_df<span class="sc">$</span>lnPrice <span class="ot">=</span> <span class="fu">log</span>(flight_df<span class="sc">$</span>Price)</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>flight_df<span class="sc">$</span>lnDuration <span class="ot">=</span> <span class="fu">log</span>(flight_df<span class="sc">$</span>Duration)</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Airline"         "Source"          "Destination"     "Dep_Time"       
+ [5] "Arrival_Time"    "Duration"        "Total_Stops"     "Additional_Info"
+ [9] "Price"           "Journey_Day"     "Journey_Month"   "weekday"        </code></pre>
+</div>
+</div>
+<p><strong>General model with simple linear regression</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>flight_reg1 <span class="ot">=</span> <span class="fu">lm</span>(lnPrice<span class="sc">~</span>Airline<span class="sc">+</span>Source<span class="sc">+</span>Dep_Time</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">+</span>Arrival_Time<span class="sc">+</span>Duration<span class="sc">+</span>Total_Stops</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">+</span>Additional_Info<span class="sc">+</span>Journey_Day<span class="sc">+</span>Journey_Month</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">+</span>weekday, <span class="at">data=</span>flight_df)</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Breusch’s and Pagan’s test</strong></p>
+<p>H0: homoscedasticity</p>
+<p>H1: heteroscedasticity</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(flight_reg1, <span class="at">studentize=</span><span class="cn">TRUE</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  flight_reg1
+BP = 1531, df = 44, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p># P-value is less than 0.05, therefore we do not reject the null hypothesis implying variance of residuals is constant.</p>
+<p><strong>Is the error term of the model normally distributed?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">jarque.bera.test</span>(flight_reg1<span class="sc">$</span>residuals)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Jarque Bera Test
+
+data:  flight_reg1$residuals
+X-squared = 1629.8, df = 2, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>With p-value &lt; 0.05, we do not reject the null hypothesis stating that Residuals are normally distributed.</p>
+<p><strong>Let’s fit a second model using Duration in logarithm</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>flight_reg2 <span class="ot">=</span> <span class="fu">lm</span>(lnPrice<span class="sc">~</span>Airline<span class="sc">+</span>Source<span class="sc">+</span>Dep_Time</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">+</span>Arrival_Time<span class="sc">+</span>lnDuration<span class="sc">+</span>Total_Stops</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">+</span>Additional_Info<span class="sc">+</span>Journey_Day<span class="sc">+</span>Journey_Month</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">+</span>weekday, <span class="at">data=</span>flight_df)</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Let’s fit a third model introducing a new feature Source-Destination ( a combination of Source&amp; Destination as a single feature) while excluding insignificant features like Source and Dep_time variables</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>flight_df<span class="sc">$</span>SourceDest <span class="ot">&lt;-</span> <span class="fu">paste</span>(flight_df<span class="sc">$</span>Source,flight_df<span class="sc">$</span>Destination,<span class="at">sep =</span> <span class="st">"-"</span>)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>flight_reg3 <span class="ot">=</span> <span class="fu">lm</span>(lnPrice<span class="sc">~</span>Airline<span class="sc">+</span>SourceDest<span class="sc">+</span>Arrival_Time</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">+</span>Total_Stops<span class="sc">+</span>lnDuration<span class="sc">+</span>Journey_Day<span class="sc">+</span>Additional_Info</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">+</span>Journey_Day<span class="sc">+</span>Journey_Month<span class="sc">+</span>weekday, data</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>                 <span class="ot">=</span>flight_df)</span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Let’s fit a fourth model excluding Additional_info variable</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>flight_reg4 <span class="ot">=</span> <span class="fu">lm</span>(lnPrice<span class="sc">~</span>Airline<span class="sc">+</span>SourceDest<span class="sc">+</span>Arrival_Time<span class="sc">+</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>                   Total_Stops<span class="sc">+</span>Journey_Day<span class="sc">+</span>lnDuration<span class="sc">+</span>Journey_Day<span class="sc">+</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>                   Journey_Month<span class="sc">+</span>weekday, <span class="at">data=</span>flight_df)</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>All fitted regression models</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE}</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(flight_reg1, flight_reg2, flight_reg3,flight_reg4, <span class="at">type=</span><span class="st">"text"</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>          ,<span class="at">align=</span><span class="cn">TRUE</span>, <span class="at">style=</span><span class="st">"default"</span>, <span class="at">df=</span><span class="cn">FALSE</span>)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=========================================================================================
+                                                         Dependent variable:             
+                                            ---------------------------------------------
+                                                               lnPrice                   
+                                               (1)        (2)         (3)         (4)    
+-----------------------------------------------------------------------------------------
+AirlineAir India                             0.260***   0.249***    0.249***    0.236*** 
+                                             (0.015)    (0.015)     (0.015)     (0.016)  
+                                                                                         
+AirlineGoAir                                  -0.016     -0.013      -0.015      -0.019  
+                                             (0.022)    (0.021)     (0.021)     (0.023)  
+                                                                                         
+AirlineIndiGo                                0.048***   0.049***    0.048***    0.045*** 
+                                             (0.014)    (0.014)     (0.014)     (0.016)  
+                                                                                         
+AirlineJet Airways                           0.663***   0.654***    0.654***    0.491*** 
+                                             (0.015)    (0.015)     (0.015)     (0.015)  
+                                                                                         
+AirlineJet Airways Business                  1.611***   1.626***    1.627***    1.760*** 
+                                             (0.122)    (0.121)     (0.121)     (0.106)  
+                                                                                         
+AirlineMultiple carriers                     0.417***   0.413***    0.410***    0.387*** 
+                                             (0.016)    (0.016)     (0.016)     (0.017)  
+                                                                                         
+AirlineMultiple carriers Premium economy     0.456***   0.454***    0.448***    0.459*** 
+                                             (0.067)    (0.067)     (0.067)     (0.073)  
+                                                                                         
+AirlineSpiceJet                             -0.062***  -0.059***   -0.061***   -0.095*** 
+                                             (0.017)    (0.017)     (0.017)     (0.017)  
+                                                                                         
+AirlineTrujet                                 -0.276     -0.263      -0.259      -0.296  
+                                             (0.234)    (0.234)     (0.234)     (0.256)  
+                                                                                         
+AirlineVistara                               0.319***   0.307***    0.307***    0.304*** 
+                                             (0.017)    (0.017)     (0.017)     (0.019)  
+                                                                                         
+AirlineVistara Premium economy               0.522***   0.520***    0.521***    0.499*** 
+                                             (0.136)    (0.135)     (0.135)     (0.148)  
+                                                                                         
+SourceChennai                               -0.064***  -0.061***                         
+                                             (0.014)    (0.014)                          
+                                                                                         
+SourceDelhi                                  0.044***   0.044***                         
+                                             (0.009)    (0.009)                          
+                                                                                         
+SourceKolkata                                0.020**    0.018**                          
+                                             (0.008)    (0.008)                          
+                                                                                         
+SourceMumbai                                -0.381***  -0.361***                         
+                                             (0.010)    (0.011)                          
+                                                                                         
+Dep_TimeEvening                               0.004      0.001                           
+                                             (0.007)    (0.007)                          
+                                                                                         
+Dep_TimeMorning                               -0.009    -0.011*                          
+                                             (0.006)    (0.006)                          
+                                                                                         
+Dep_TimeNight                                 0.004      0.001                           
+                                             (0.008)    (0.008)                          
+                                                                                         
+SourceDestChennai-Kolkata                                          -0.060***   -0.072*** 
+                                                                    (0.014)     (0.015)  
+                                                                                         
+SourceDestDelhi-Cochin                                              0.044***    0.027*** 
+                                                                    (0.009)     (0.009)  
+                                                                                         
+SourceDestKolkata-Banglore                                          0.019**      0.007   
+                                                                    (0.008)     (0.009)  
+                                                                                         
+SourceDestMumbai-Hyderabad                                         -0.361***   -0.376*** 
+                                                                    (0.011)     (0.012)  
+                                                                                         
+Arrival_TimeEvening                          0.029***   0.028***    0.030***    0.043*** 
+                                             (0.007)    (0.007)     (0.007)     (0.008)  
+                                                                                         
+Arrival_TimeMorning                           0.008      0.005       0.004      0.016**  
+                                             (0.008)    (0.008)     (0.008)     (0.008)  
+                                                                                         
+Arrival_TimeNight                           -0.028***  -0.027***   -0.023***    -0.012*  
+                                             (0.007)    (0.007)     (0.007)     (0.007)  
+                                                                                         
+Duration                                     0.00000                                     
+                                            (0.00001)                                    
+                                                                                         
+lnDuration                                              0.034***    0.034***    0.021*** 
+                                                        (0.006)     (0.006)     (0.007)  
+                                                                                         
+Total_Stops1                                 0.425***   0.382***    0.380***    0.402*** 
+                                             (0.009)    (0.011)     (0.011)     (0.012)  
+                                                                                         
+Total_Stops2                                 0.606***   0.550***    0.546***    0.609*** 
+                                             (0.012)    (0.015)     (0.015)     (0.016)  
+                                                                                         
+Total_Stops3                                 0.732***   0.668***    0.663***    0.708*** 
+                                             (0.037)    (0.038)     (0.038)     (0.041)  
+                                                                                         
+Total_Stops4                                 0.629**    0.551**     0.546**     0.744*** 
+                                             (0.253)    (0.252)     (0.253)     (0.256)  
+                                                                                         
+Additional_Info1 Short layover                0.342      0.355       0.343               
+                                             (0.240)    (0.239)     (0.239)              
+                                                                                         
+Additional_Info2 Long layover                 0.295      0.292       0.285               
+                                             (0.240)    (0.239)     (0.239)              
+                                                                                         
+Additional_InfoBusiness class                 0.070      0.080       0.070               
+                                             (0.157)    (0.157)     (0.157)              
+                                                                                         
+Additional_InfoChange airports                -0.124     -0.112      -0.118              
+                                             (0.110)    (0.109)     (0.109)              
+                                                                                         
+Additional_InfoIn-flight meal not included  -0.628***  -0.625***   -0.629***             
+                                             (0.055)    (0.055)     (0.055)              
+                                                                                         
+Additional_InfoNo check-in baggage included -0.384***  -0.382***   -0.388***             
+                                             (0.057)    (0.057)     (0.057)              
+                                                                                         
+Additional_InfoNo Info                      -0.305***  -0.300***   -0.304***             
+                                             (0.055)    (0.055)     (0.055)              
+                                                                                         
+Additional_InfoRed-eye flight                 0.297      0.298       0.296               
+                                             (0.240)    (0.240)     (0.240)              
+                                                                                         
+Journey_Day                                 -0.007***  -0.007***   -0.007***   -0.008*** 
+                                             (0.0003)   (0.0003)    (0.0003)    (0.0003) 
+                                                                                         
+Journey_MonthApril                          -0.284***  -0.281***   -0.281***   -0.294*** 
+                                             (0.009)    (0.009)     (0.009)     (0.010)  
+                                                                                         
+Journey_MonthMay                            -0.136***  -0.135***   -0.135***   -0.145*** 
+                                             (0.007)    (0.007)     (0.007)     (0.007)  
+                                                                                         
+Journey_MonthJune                           -0.168***  -0.167***   -0.166***   -0.180*** 
+                                             (0.007)    (0.007)     (0.007)     (0.007)  
+                                                                                         
+weekdayMon                                  -0.128***  -0.129***   -0.128***   -0.145*** 
+                                             (0.010)    (0.010)     (0.010)     (0.011)  
+                                                                                         
+weekdaySat                                  -0.097***  -0.098***   -0.098***   -0.120*** 
+                                             (0.010)    (0.010)     (0.010)     (0.011)  
+                                                                                         
+weekdaySun                                  -0.062***  -0.063***   -0.063***   -0.078*** 
+                                             (0.010)    (0.010)     (0.010)     (0.011)  
+                                                                                         
+weekdayThu                                  -0.161***  -0.161***   -0.161***   -0.184*** 
+                                             (0.010)    (0.010)     (0.010)     (0.011)  
+                                                                                         
+weekdayTue                                  -0.078***  -0.080***   -0.080***   -0.086*** 
+                                             (0.011)    (0.011)     (0.011)     (0.012)  
+                                                                                         
+weekdayWed                                  -0.148***  -0.149***   -0.149***   -0.161*** 
+                                             (0.010)    (0.010)     (0.010)     (0.011)  
+                                                                                         
+Constant                                     9.027***   8.854***    8.852***    8.655*** 
+                                             (0.056)    (0.064)     (0.064)     (0.037)  
+                                                                                         
+-----------------------------------------------------------------------------------------
+Observations                                  10,682     10,682      10,682      10,682  
+R2                                            0.794      0.795       0.795       0.754   
+Adjusted R2                                   0.793      0.794       0.794       0.754   
+Residual Std. Error                           0.233      0.233       0.233       0.255   
+F Statistic                                 932.995*** 936.560*** 1,004.702*** 990.947***
+=========================================================================================
+Note:                                                         *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p><strong>lnPrice = β0 + β1Airline + β2SourceDest + β2Arrival_Time + β2Total_Stops + β2lnDuration + β2Journey_Day + β2Journey_Month + β2Additional_Info + β2weekday + εi</strong></p>
+<p>The third model seem to be a better fit as it has a similar R2 of 79% as the first and second model thereby explaining same amount of variability after excluding insignificant variable such as Departure time, and combining Source&amp; Destination as a single feature.</p>
+<p>In comparison to March and Friday,prices are lower on other months and week days respectively. Additional number of stops significantly increase flight prices.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This project extensively used R to carry out data cleaning, exploratory data analysis using data visualization and correlation analysis, as well as data modelling using simple linear regression model-lm().</p>
+<p>Variables such as weekday, month, journey day, total stops, duration, arrival time, source to destination, and airlines significantly impact flight prices.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

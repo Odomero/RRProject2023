@@ -13,9 +13,7 @@ execute:
 
 ## Introduction.
 
-This project converts and extends a Python notebook on "**Statistical Analysis & EDA for flight fare**" using R and Quarto notebook. The original notebook can be found on Kaggle at https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook .
-
-## Exploratory Data Analysis
+This project converts and extends a Python notebook on "**Statistical Analysis & EDA for flight fare**" using R and Quarto notebook. The original notebook can be found on Kaggle at https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook
 
 ##### LOAD REQUIRED LIBRARIES
 
@@ -31,6 +29,7 @@ library(lubridate)
 library(scales)
 library(stargazer)
 library(lmtest)
+library(tseries)
 ```
 
 ##### LOAD DATASET
@@ -40,7 +39,6 @@ setwd("/Users/omokahfe/Desktop/")
 flight_data <- read_excel("ResearchClass/RRProject2023/data/Flight_data.xlsx")
 ```
 
-To get dimension of our dataset, i.e., shape\
 The flight dataset comprises 10,683 observations with 11 variables (10 independent variables and 1 target variable)
 
 ```{r}
@@ -306,6 +304,8 @@ ggplot(flight_data, aes(Airline, fill= Airline)) +
 
 Airline vs AveragePrice
 
+Outliers can be spotted in flight prices.
+
 ```{r}
 ggplot(flight_data %>% arrange(desc(Price)), aes(Airline, Price, fill= Airline)) + 
   geom_boxplot() + 
@@ -493,4 +493,90 @@ We have a p-value \< 0.05, hence we accept H1 and decide the target variable and
 
 ## Regression Analysis
 
+**Further Data Preparation**
+
+```{r}
+flight_df$weekday <- as.character(flight_df$weekday)
+
+# let's generate logarithm of flight prices and duration
+colnames(flight_df)
+flight_df$lnPrice = log(flight_df$Price)
+flight_df$lnDuration = log(flight_df$Duration)
+```
+
+**General model with simple linear regression**
+
+```{r}
+flight_reg1 = lm(lnPrice~Airline+Source+Dep_Time
+                 +Arrival_Time+Duration+Total_Stops
+                 +Additional_Info+Journey_Day+Journey_Month
+                 +weekday, data=flight_df)
+```
+
+**Breusch's and Pagan's test**
+
+H0: homoscedasticity
+
+H1: heteroscedasticity
+
+```{r}
+bptest(flight_reg1, studentize=TRUE)
+```
+
+\# P-value is less than 0.05, therefore we do not reject the null hypothesis implying variance of residuals is constant.
+
+**Is the error term of the model normally distributed?**
+
+```{r}
+jarque.bera.test(flight_reg1$residuals)
+```
+
+With p-value \< 0.05, we do not reject the null hypothesis stating that Residuals are normally distributed.
+
+**Let's fit a second model using Duration in logarithm**
+
+```{r}
+flight_reg2 = lm(lnPrice~Airline+Source+Dep_Time
+                 +Arrival_Time+lnDuration+Total_Stops
+                 +Additional_Info+Journey_Day+Journey_Month
+                 +weekday, data=flight_df)
+
+```
+
+**Let's fit a third model introducing a new feature Source-Destination ( a combination of Source& Destination as a single feature) while excluding insignificant features like Source and Dep_time variables**
+
+```{r}
+flight_df$SourceDest <- paste(flight_df$Source,flight_df$Destination,sep = "-")
+
+flight_reg3 = lm(lnPrice~Airline+SourceDest+Arrival_Time
+                 +Total_Stops+lnDuration+Journey_Day+Additional_Info
+                 +Journey_Day+Journey_Month+weekday, data
+                 =flight_df)
+```
+
+**Let's fit a fourth model excluding Additional_info variable**
+
+```{r}
+flight_reg4 = lm(lnPrice~Airline+SourceDest+Arrival_Time+
+                   Total_Stops+Journey_Day+lnDuration+Journey_Day+
+                   Journey_Month+weekday, data=flight_df)
+```
+
+**All fitted regression models**
+
+```{r warning=FALSE}
+stargazer(flight_reg1, flight_reg2, flight_reg3,flight_reg4, type="text"
+          ,align=TRUE, style="default", df=FALSE)
+```
+
+**lnPrice = β0 + β1Airline + β2SourceDest + β2Arrival_Time + β2Total_Stops + β2lnDuration + β2Journey_Day + β2Journey_Month + β2Additional_Info + β2weekday + εi**
+
+The third model seem to be a better fit as it has a similar R2 of 79% as the first and second model thereby explaining same amount of variability after excluding insignificant variable such as Departure time, and combining Source& Destination as a single feature.
+
+In comparison to March and Friday,prices are lower on other months and week days respectively. Additional number of stops significantly increase flight prices.
+
 ## Conclusion
+
+This project extensively used R to carry out data cleaning, exploratory data analysis using data visualization and correlation analysis, as well as data modelling using simple linear regression model-lm().
+
+Variables such as weekday, month, journey day, total stops, duration, arrival time, source to destination, and airlines significantly impact flight prices.

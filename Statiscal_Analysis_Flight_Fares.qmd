@@ -13,7 +13,7 @@ execute:
 
 ## Introduction.
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+This project converts and extends a Python notebook on "**Statistical Analysis & EDA for flight fare**" using R and Quarto notebook. The original notebook can be found on Kaggle at https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook .
 
 ## Exploratory Data Analysis
 
@@ -29,25 +29,28 @@ library(lattice)
 library(readxl)
 library(lubridate)
 library(scales)
-
+library(stargazer)
+library(lmtest)
 ```
 
 ##### LOAD DATASET
 
 ```{r}
-train <- read_excel("data/Flight_data.xlsx")
+setwd("/Users/omokahfe/Desktop/")
+flight_data <- read_excel("ResearchClass/RRProject2023/data/Flight_data.xlsx")
 ```
 
-To get dimension of our dataset, i.e., shape
+To get dimension of our dataset, i.e., shape\
+The flight dataset comprises 10,683 observations with 11 variables (10 independent variables and 1 target variable)
 
 ```{r}
-dim(train)
+dim(flight_data)
 ```
 
 To print the top 5 rows of our dataset
 
 ```{r}
-head(train, 5)
+head(flight_data, 5)
 ```
 
 ##### HANDLING MISSING DATA
@@ -55,8 +58,8 @@ head(train, 5)
 To check for missing values and drop missing values
 
 ```{r}
-print(colSums(is.na(train)))
-train <- na.omit(train)
+print(colSums(is.na(flight_data)))
+flight_data <- na.omit(flight_data)
 
 ```
 
@@ -65,22 +68,32 @@ train <- na.omit(train)
 To extract day, month, year, and weekday from Date of Journey
 
 ```{r}
-train$Journey_Day <- day(dmy(train$Date_of_Journey))
-train$Journey_Month <- month(dmy(train$Date_of_Journey))
-train$Journey_Year <- year(dmy(train$Date_of_Journey))
-train$weekday <- wday(dmy(train$Date_of_Journey), label = TRUE)
+flight_data$Journey_Day <- day(dmy(flight_data$Date_of_Journey))
+flight_data$Journey_Month <- month(dmy(flight_data$Date_of_Journey))
+flight_data$Journey_Year <- year(dmy(flight_data$Date_of_Journey))
+flight_data$weekday <- wday(dmy(flight_data$Date_of_Journey), label = TRUE)
+
+table(flight_data$Journey_Year)
+table(flight_data$Journey_Month)
 ```
 
-Remove the Date_of_Journey column since it is no longer needed
+Remove the Date_of_Journey and Journey_Year column
 
 ```{r}
-train$Date_of_Journey <- NULL
+flight_data$Date_of_Journey <- NULL
+flight_data$Journey_Year <- NULL
+```
+
+"New Delhi" and "Delhi" seems to be same location.
+
+```{r}
+flight_data$Destination[flight_data$Destination == "New Delhi"] <- "Delhi"
 ```
 
 Now we can see the list of column names in our dataset
 
 ```{r}
-names(train)
+names(flight_data)
 ```
 
 ##### CLEAN DURATION VARIABLE
@@ -105,13 +118,13 @@ duration <- function(test) {
 Apply duration function to the "Duration" column
 
 ```{r}
-train$Duration <- sapply(train$Duration, duration)
+flight_data$Duration <- sapply(flight_data$Duration, duration)
 ```
 
 Get number of unique values in "Duration" column
 
 ```{r}
-n_distinct(train$Duration)
+n_distinct(flight_data$Duration)
 ```
 
 ##### CLEAN DEP TIME AND ARRIVAL TIME VARIABLE
@@ -139,8 +152,8 @@ deparrtime <- function(x) {
 Then we will apply deparrtime function to the "Dep_Time" and "Arrival_Time" columns
 
 ```{r}
-train$Dep_Time <- sapply(train$Dep_Time, deparrtime)
-train$Arrival_Time <- sapply(train$Arrival_Time, deparrtime)
+flight_data$Dep_Time <- sapply(flight_data$Dep_Time, deparrtime)
+flight_data$Arrival_Time <- sapply(flight_data$Arrival_Time, deparrtime)
 ```
 
 ##### CLEAN TOTAL STOPS VARIABLE
@@ -156,7 +169,7 @@ stops <- function(x) {
 Then we apply stops function to the "Total_Stops" column
 
 ```{r}
-train$Total_Stops <- sapply(train$Total_Stops, stops)
+flight_data$Total_Stops <- sapply(flight_data$Total_Stops, stops)
 ```
 
 ##### FURTHER DATA CLEANING
@@ -166,33 +179,33 @@ train$Total_Stops <- sapply(train$Total_Stops, stops)
 -   Drop the "Route" column
 
 ```{r}
-train$Additional_Info <- ifelse(train$Additional_Info == "No info", "No Info", train$Additional_Info)
+flight_data$Additional_Info <- ifelse(flight_data$Additional_Info == "No info", "No Info", flight_data$Additional_Info)
 
-train <- train[, !(names(train) %in% c("Route"))]
+flight_data <- flight_data[, !(names(flight_data) %in% c("Route"))]
 ```
 
 View the first two rows of the data and get information about the data frame
 
 ```{r}
-head(train, 2)
-str(train)
+head(flight_data, 2)
+str(flight_data)
 ```
 
 Make a copy of the data frame
 
 ```{r}
-flight_data <- train
+flight_df <- flight_data
 ```
 
 Convert columns to the specified data types
 
 ```{r}
 
-flight_data$Duration <- as.integer(flight_data$Duration) 
+flight_df$Duration <- as.integer(flight_df$Duration) 
 
-for (col in colnames(flight_data)) {
-  if (is.character(flight_data[[col]])) {
-    flight_data[[col]] <- as.factor(flight_data[[col]])
+for (col in colnames(flight_df)) {
+  if (is.character(flight_df[[col]])) {
+    flight_df[[col]] <- as.factor(flight_df[[col]])
   }
 }
 ```
@@ -200,7 +213,7 @@ for (col in colnames(flight_data)) {
 Replace values in the "Journey_Month" column
 
 ```{r}
-flight_data$Journey_Month <- factor(flight_data$Journey_Month, levels = c(3, 4, 5, 6), labels = c("March", "April", "May", "June"))
+flight_df$Journey_Month <- factor(flight_df$Journey_Month, levels = c(3, 4, 5, 6), labels = c("March", "April", "May", "June"))
 
 
 ```
@@ -212,7 +225,7 @@ flight_data$Journey_Month <- factor(flight_data$Journey_Month, levels = c(3, 4, 
 This plot visualizes the total each month with total fare per month
 
 ```{r}
-v1 <- ggplot(flight_data, aes(x = Journey_Month, y = Price, fill = Journey_Month)) + 
+v1 <- ggplot(flight_df, aes(x = Journey_Month, y = Price, fill = Journey_Month)) + 
   geom_bar(stat = "summary", fun = sum) + 
   ggtitle("Monthv/sPrice") + 
   ylab("Price") + 
@@ -231,7 +244,7 @@ v1
 Firstly create a data frame from the top_month data then plot a bar plot
 
 ```{r}
-top_month <- head(sort(table(flight_data$Journey_Month), decreasing = TRUE), 10)
+top_month <- head(sort(table(flight_df$Journey_Month), decreasing = TRUE), 10)
 top_month_df <- data.frame(month = names(top_month), count = top_month)
 
 ggplot(top_month_df, aes(x = month, y = count.Freq, fill = month)) +
@@ -246,7 +259,7 @@ ggplot(top_month_df, aes(x = month, y = count.Freq, fill = month)) +
 Compute the average price for each month then create a bar plot showing the average price for each month
 
 ```{r}
-monthly_avg <- flight_data %>%
+monthly_avg <- flight_df %>%
   group_by(Journey_Month) %>%
   summarise(avg_price = mean(Price))
 ggplot(monthly_avg, aes(x = Journey_Month, y = avg_price, fill = Journey_Month)) +
@@ -260,7 +273,7 @@ ggplot(monthly_avg, aes(x = Journey_Month, y = avg_price, fill = Journey_Month))
 Create a box plot showing the distribution of prices for each destination
 
 ```{r}
-ggplot(flight_data, aes(x = Destination, y = Price, fill = Destination)) +
+ggplot(flight_df, aes(x = Destination, y = Price, fill = Destination)) +
   geom_boxplot() +
   ggtitle("Destination vs Average Price") +
   xlab("Destination") +
@@ -272,7 +285,7 @@ ggplot(flight_data, aes(x = Destination, y = Price, fill = Destination)) +
 Source vs AveragePrice
 
 ```{r}
-ggplot(train %>% arrange(desc(Price)), aes(Source, Price, fill = Source)) + 
+ggplot(flight_data %>% arrange(desc(Price)), aes(Source, Price, fill = Source)) + 
   geom_boxplot() + 
   theme_bw() + 
   labs(title = "Source vs Average Price")
@@ -281,7 +294,7 @@ ggplot(train %>% arrange(desc(Price)), aes(Source, Price, fill = Source)) +
 Count of flights v/s Airline
 
 ```{r}
-ggplot(train, aes(Airline, fill= Airline)) + 
+ggplot(flight_data, aes(Airline, fill= Airline)) + 
   geom_bar() + 
   theme_bw() + 
   labs(title = "Count of flights with different Airlines", 
@@ -294,7 +307,7 @@ ggplot(train, aes(Airline, fill= Airline)) +
 Airline vs AveragePrice
 
 ```{r}
-ggplot(train %>% arrange(desc(Price)), aes(Airline, Price, fill= Airline)) + 
+ggplot(flight_data %>% arrange(desc(Price)), aes(Airline, Price, fill= Airline)) + 
   geom_boxplot() + 
   theme_bw() + 
   labs(title = "Airline vs Average Price")
@@ -303,7 +316,7 @@ ggplot(train %>% arrange(desc(Price)), aes(Airline, Price, fill= Airline)) +
 duration v/s AveragePrice
 
 ```{r}
-ggplot(train, aes(Duration, Price)) + 
+ggplot(flight_df, aes(Duration, Price)) + 
   geom_point() + 
   theme_bw() + 
   labs(title = "Duration vs Average Price")
@@ -312,7 +325,7 @@ ggplot(train, aes(Duration, Price)) +
 Deptarure time v/s AveragePrice
 
 ```{r}
-ggplot(train, aes(Dep_Time, Price, fill= Dep_Time)) + 
+ggplot(flight_data, aes(Dep_Time, Price, fill= Dep_Time)) + 
   geom_bar(stat = "summary", fun = "mean") + 
   theme_bw() + 
   labs(title = "Departure Time vs Average Price", 
@@ -324,7 +337,7 @@ ggplot(train, aes(Dep_Time, Price, fill= Dep_Time)) +
 time of departure v/s count of flights
 
 ```{r}
-top_time <- train %>% 
+top_time <- flight_data %>% 
   count(Dep_Time) %>% 
   top_n(10, n)
 
@@ -341,7 +354,7 @@ ggplot(top_time, aes(Dep_Time, n)) +
 TIME OF ARRIVAL V/S average price
 
 ```{r}
-ggplot(train, aes(Arrival_Time, Price)) + 
+ggplot(flight_data, aes(Arrival_Time, Price)) + 
   geom_bar(stat = "summary", fun = "mean", fill = "red") + 
   theme_bw() + 
   labs(title = "Time of Arrival vs Average Price", 
@@ -353,7 +366,7 @@ ggplot(train, aes(Arrival_Time, Price)) +
 total stops v/s average price
 
 ```{r}
-ggplot(train, aes(Total_Stops, Price)) + 
+ggplot(flight_data, aes(Total_Stops, Price)) + 
   geom_bar(stat = "summary", fun = "mean", fill = "steelblue") + 
   theme_bw() + 
   labs(title = "Number of Stops vs Average Price", 
@@ -365,38 +378,11 @@ ggplot(train, aes(Total_Stops, Price)) +
 WEEKDAY V/S average price
 
 ```{r}
-ggplot(train, aes(weekday, Price)) + 
+ggplot(flight_data, aes(weekday, Price)) + 
   geom_bar(stat = "summary", fun = "mean", fill= "brown") +
   theme_bw() + 
   labs(title = "Weekday vs Average Price", x = "Weekday", y = "Price") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
-```
-
-## Correlation Analysis
-
-```{r}
-# Converting duration into minutes
-# Define duration function
-duration <- function(test) {
-  test <- gsub("\\s+", "", test) # remove white spaces
-  total <- strsplit(test, split = "[a-zA-Z]+")[[1]] # split the string into substrings
-  to <- total[1]
-  hrs <- as.numeric(gsub("[^[:digit:]]", "", to)) * 60 # extract the hours and convert to minutes
-  if (length(total) == 2) {
-    mint <- as.numeric(gsub("[^[:digit:]]", "", total[2])) # extract the minutes
-    hrs <- hrs + mint
-  }
-  return(as.character(hrs))
-}
-```
-
-```{r}
-# Apply duration function to the "Duration" column
-train$Duration <- sapply(train$Duration, duration)
-```
-
-```{r}
-train$Duration <- as.integer(train$Duration)
 ```
 
 ## Correlation Tests
@@ -411,17 +397,21 @@ library(devtools)
 ```
 
 ```{r}
-head(train, 5)
+head(flight_data, 5)
 ```
 
 ```{r}
-str(train)
+str(flight_data)
+```
+
+```{r}
+flight_data$Duration <- as.integer(flight_data$Duration)
 ```
 
 ##### Plotting the correlation between *Duration* and *Price*
 
 ```{r message=FALSE}
-ggplot(train, aes(x = Duration, y = Price)) + 
+ggplot(flight_data, aes(x = Duration, y = Price)) + 
   geom_point() + 
   geom_smooth(method = "lm", color = "red") +
   labs(x = "Duration (in minutes)", y = "Price")
@@ -433,18 +423,18 @@ ggplot(train, aes(x = Duration, y = Price)) +
 
 *We therefore look at the normality plot using the function: ggpubr::ggqqplot()*
 
-##### Plotting to check for normality 
+##### Plotting to check for normality
 
 ###### Duration
 
-```{r}
-ggqqplot(train$Duration, ylab = "Duration")
+```{r warning=FALSE}
+ggqqplot(flight_data$Duration, ylab = "Duration")
 ```
 
 ###### Price
 
-```{r}
-ggqqplot(train$Price, ylab = "Price")
+```{r warning=FALSE}
+ggqqplot(flight_data$Price, ylab = "Price")
 ```
 
 From the normality plots, we conclude that both populations may come from normal distributions.
@@ -460,7 +450,7 @@ From the normality plots, we conclude that both populations may come from normal
 ##### Pearson correlation test
 
 ```{r}
-res <- cor.test(train$Duration, train$Price, method = "pearson")
+res <- cor.test(flight_data$Duration, flight_data$Price, method = "pearson")
 res
 ```
 
@@ -471,7 +461,7 @@ We can conclude that *Duration* and *Price* are significantly correlated with a 
 ##### Kendall rank correlation test
 
 ```{r}
-res2 <- cor.test(train$Duration, train$Price,  method="kendall")
+res2 <- cor.test(flight_data$Duration, flight_data$Price,  method="kendall")
 res2
 ```
 
@@ -480,7 +470,7 @@ NOTE: **tau** is the Kendall correlation coefficient. The correlation coefficien
 ##### Spearman rank correlation coefficient
 
 ```{r warning=FALSE}
-res3 <-cor.test(train$Duration, train$Price,  method = "spearman")
+res3 <-cor.test(flight_data$Duration, flight_data$Price,  method = "spearman")
 res3
 ```
 
@@ -489,7 +479,7 @@ NOTE: **rho** is the Spearman's correlation coefficient. The correlation coeffic
 ##### Correlation Plot with Frequency Distribution
 
 ```{r message=FALSE}
-p <- ggplot(train, aes(x = Duration, y = Price)) +
+p <- ggplot(flight_data, aes(x = Duration, y = Price)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
   stat_cor(aes(label = paste("r = ", round(..r.., 2), "\n", "p = ", 

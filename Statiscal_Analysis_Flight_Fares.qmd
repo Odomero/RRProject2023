@@ -1,23 +1,31 @@
 ---
-title: "Statistical Analysis of Flight Fares"
-format: html
+title: "STATISTICAL ANALYSIS OF FLIGHT FARES"
 author:   
   - Anjolaoluwa Olatunbosun   
   - Ayoola Ayetigbo
   - Odomero Omokahfe
-date: "4/28/2023"
+date: today
 editor: source
+format:
+  html:
+    toc: true
+    toc-title: TABLE OF CONTENTS
+    toc-location: left
+    theme: 
+      light: lumen
+      dark: darkly
 execute:
   echo: fenced
+  warning: false
 ---
 
-## Introduction.
+## INTRODUCTION
 
 This project converts and extends a Python notebook on "**Statistical Analysis & EDA for flight fare**" using R and Quarto notebook. The original notebook can be found on Kaggle at <https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook>
 
 ##### LOAD REQUIRED LIBRARIES
 
-```{r warning=FALSE, message=FALSE}
+```{r}
 library(tidyverse)
 library(ggplot2)
 library(gridExtra)
@@ -49,6 +57,9 @@ To print the top 5 rows of our dataset
 ```{r}
 head(flight_data, 5)
 ```
+
+
+## EXPLORATORY DATA ANALYSIS
 
 ##### HANDLING MISSING DATA
 
@@ -215,7 +226,6 @@ flight_df$Journey_Month <- factor(flight_df$Journey_Month, levels = c(3, 4, 5, 6
 
 ```
 
-### EXPLORATORY DATA ANALYSIS
 
 ##### JOURNEY MONTH VS TOTAL FARE
 
@@ -384,11 +394,11 @@ ggplot(flight_data, aes(weekday, Price)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
-## Correlation Tests
+## CORRELATION ANALYSIS
 
 ##### Adding additional libraries
 
-```{r warning=FALSE, message=FALSE}
+```{r}
 library(ggpubr)
 library(ggExtra)
 library(devtools)
@@ -409,7 +419,7 @@ flight_data$Duration <- as.integer(flight_data$Duration)
 
 ##### Plotting the correlation between *Duration* and *Price*
 
-```{r message=FALSE}
+```{r}
 ggplot(flight_data, aes(x = Duration, y = Price)) + 
   geom_point() + 
   geom_smooth(method = "lm", color = "red") +
@@ -423,18 +433,21 @@ ggplot(flight_data, aes(x = Duration, y = Price)) +
 *We therefore look at the normality plot using the function: ggpubr::ggqqplot()*
 
 ##### Plotting to check for normality
+::: panel-tabset
 
 ###### Duration
 
-```{r warning=FALSE}
+```{r}
 ggqqplot(flight_data$Duration, ylab = "Duration")
 ```
 
 ###### Price
 
-```{r warning=FALSE}
+```{r}
 ggqqplot(flight_data$Price, ylab = "Price")
 ```
+
+:::
 
 From the normality plots, we conclude that both populations may come from normal distributions.
 
@@ -468,7 +481,7 @@ NOTE: **tau** is the Kendall correlation coefficient. The correlation coefficien
 
 ##### Spearman rank correlation coefficient
 
-```{r warning=FALSE}
+```{r}
 res3 <-cor.test(flight_data$Duration, flight_data$Price,  method = "spearman")
 res3
 ```
@@ -477,7 +490,7 @@ NOTE: **rho** is the Spearman's correlation coefficient. The correlation coeffic
 
 ##### Correlation Plot with Frequency Distribution
 
-```{r message=FALSE}
+```{r}
 p <- ggplot(flight_data, aes(x = Duration, y = Price)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -490,7 +503,7 @@ ggMarginal(p, type = "histogram", bins = 20)
 
 We have a p-value \< 0.05, hence we accept H1 and decide the target variable and continuous independent variable are correlated. **r = 0.51** means they are moderately related.
 
-## Regression Analysis
+## REGRESSION ANALYSIS
 
 **Further Data Preparation**
 
@@ -522,7 +535,7 @@ H1: heteroscedasticity
 bptest(flight_reg1, studentize=TRUE)
 ```
 
-\# P-value is less than 0.05, therefore we do not reject the null hypothesis implying variance of residuals is constant.
+P-value is less than 0.05, therefore we do not reject the null hypothesis implying variance of residuals is constant.
 
 **Is the error term of the model normally distributed?**
 
@@ -563,7 +576,7 @@ flight_reg4 = lm(lnPrice~Airline+SourceDest+Arrival_Time+
 
 **All fitted regression models**
 
-```{r warning=FALSE}
+```{r}
 stargazer(flight_reg1, flight_reg2, flight_reg3,flight_reg4, type="text"
           ,align=TRUE, style="default", df=FALSE)
 ```
@@ -574,7 +587,7 @@ The third model seem to be a better fit as it has a similar R2 of 79% as the fir
 
 In comparison to March and Friday,prices are lower on other months and week days respectively. Additional number of stops significantly increase flight prices.
 
-## Conclusion
+## CONCLUSION
 
 This project extensively used R to carry out data cleaning, feature engineering, exploratory data analysis using data visualization and correlation analysis, as well as data modelling using simple linear regression model-lm(). The dataset had a total of 10,682 observations with 10 independent variables and a continuous dependent variable (flight prices).
 

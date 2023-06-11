@@ -595,7 +595,7 @@ stargazer(flight_reg1, flight_reg2, flight_reg3,flight_reg4, type="text"
           ,align=TRUE, style="default", df=FALSE)
 ```
 
-**lnPrice = β0 + β1Airline + β2SourceDest + β2Arrival_Time + β2Total_Stops + β2lnDuration + β2Journey_Day + β2Journey_Month + β2Additional_Info + β2weekday + εi**
+**lnPrice = β0 + β1Airline + β2SourceDest + β3Arrival_Time + β4Total_Stops + β5lnDuration + β6Journey_Day + β7Journey_Month + β8Additional_Info + β9weekday + εi**
 
 The third model seem to be a better fit as it has a similar R2 of 79% as the first and second model thereby explaining same amount of variability after excluding insignificant variable such as Departure time, and combining Source& Destination as a single feature.
 

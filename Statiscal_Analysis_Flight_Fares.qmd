@@ -226,8 +226,9 @@ flight_df$Journey_Month <- factor(flight_df$Journey_Month, levels = c(3, 4, 5, 6
 
 ```
 
+::: {.panel-tabset}
 
-##### JOURNEY MONTH VS TOTAL FARE
+### JOURNEY MONTH VS TOTAL FARE
 
 This plot visualizes the total each month with total fare per month
 
@@ -246,7 +247,7 @@ v1
 
 ```
 
-##### COUNT OF FLIGHTS PER MONTH
+### COUNT OF FLIGHTS PER MONTH
 
 Firstly create a data frame from the top_month data then plot a bar plot
 
@@ -289,7 +290,7 @@ ggplot(flight_df, aes(x = Destination, y = Price, fill = Destination)) +
   coord_flip()
 ```
 
-Source vs AveragePrice
+### SOURCE VS AVERAGE PRICE
 
 ```{r}
 ggplot(flight_data %>% arrange(desc(Price)), aes(Source, Price, fill = Source)) + 
@@ -298,7 +299,7 @@ ggplot(flight_data %>% arrange(desc(Price)), aes(Source, Price, fill = Source)) 
   labs(title = "Source vs Average Price")
 ```
 
-Count of flights v/s Airline
+### COUNT OF FLIGHTS VS AIRLINE
 
 ```{r}
 ggplot(flight_data, aes(Airline, fill= Airline)) + 
@@ -311,7 +312,7 @@ ggplot(flight_data, aes(Airline, fill= Airline)) +
   geom_text(stat = "count", aes(label = ..count..), vjust = -0.5)
 ```
 
-Airline vs AveragePrice
+### AIRLINE VS AVERAGE PRICE 
 
 Outliers can be spotted in flight prices.
 
@@ -322,7 +323,7 @@ ggplot(flight_data %>% arrange(desc(Price)), aes(Airline, Price, fill= Airline))
   labs(title = "Airline vs Average Price")
 ```
 
-duration v/s AveragePrice
+### DURATION VS AVERAGE PRICE
 
 ```{r}
 ggplot(flight_df, aes(Duration, Price)) + 
@@ -331,7 +332,7 @@ ggplot(flight_df, aes(Duration, Price)) +
   labs(title = "Duration vs Average Price")
 ```
 
-Deptarure time v/s AveragePrice
+### DEPARTURE TIME VS AVERAGE PRICE
 
 ```{r}
 ggplot(flight_data, aes(Dep_Time, Price, fill= Dep_Time)) + 
@@ -343,7 +344,7 @@ ggplot(flight_data, aes(Dep_Time, Price, fill= Dep_Time)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
-time of departure v/s count of flights
+### TIME OF DEPARTURE VS COUNT OF FLIGHTS
 
 ```{r}
 top_time <- flight_data %>% 
@@ -360,7 +361,7 @@ ggplot(top_time, aes(Dep_Time, n)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
-TIME OF ARRIVAL V/S average price
+### TIME OF ARRIVAL VS AVERAGE PRICE
 
 ```{r}
 ggplot(flight_data, aes(Arrival_Time, Price)) + 
@@ -372,7 +373,7 @@ ggplot(flight_data, aes(Arrival_Time, Price)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
-total stops v/s average price
+### TOTAL STOPS VS AVERAGE PRICE
 
 ```{r}
 ggplot(flight_data, aes(Total_Stops, Price)) + 
@@ -384,7 +385,7 @@ ggplot(flight_data, aes(Total_Stops, Price)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
-WEEKDAY V/S average price
+### WEEKDAY VS AVERAGE PRICE
 
 ```{r}
 ggplot(flight_data, aes(weekday, Price)) + 
@@ -393,6 +394,8 @@ ggplot(flight_data, aes(weekday, Price)) +
   labs(title = "Weekday vs Average Price", x = "Weekday", y = "Price") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
+
+:::
 
 ## CORRELATION ANALYSIS
 

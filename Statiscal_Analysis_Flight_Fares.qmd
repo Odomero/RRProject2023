@@ -21,7 +21,18 @@ execute:
 
 ## INTRODUCTION
 
-This project converts and extends a Python notebook on "**Statistical Analysis & EDA for flight fare**" using R and Quarto notebook. The original notebook can be found on Kaggle at <https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook>
+This project converts and extends a Python notebook on "**Statistical Analysis & EDA for flight fare**" using R and Quarto notebook. The original notebook can be found on Kaggle at <https://www.kaggle.com/code/ananyanandi02/statistical-analysis-eda-for-flight-fare/notebook>. The dataset contains 11 variables and 10683 observations. The variables are outlined below:
+  1. Airline: The name of the airline company.
+2. Date of Journey: The date of the flight journey.
+3. Source: The source or starting location of the flight.
+4. Destination: The destination or final location of the flight.
+5. Route: The flight route from the source to the destination.
+6. Departure time: The time of departure for the flight.
+7. Arrival time: The time of arrival at the destination.
+8. Duration: The duration/length of the flight.
+9. Total stops: The number of stops during the flight journey.
+10. Additional info: Additional information about the flight.
+11. Price: The fare or price of the flight ticket.
 
 ##### LOAD REQUIRED LIBRARIES
 

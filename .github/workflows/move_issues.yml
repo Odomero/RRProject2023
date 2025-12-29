@@ -1,32 +1,32 @@
 # This is a basic workflow that is manually triggered
 
-name: Move issues
-
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
+name: Move open issues to the current project iteration
 on:
-  workflow_dispatch:
-    # Inputs the workflow accepts
-    # Inputs the workflow accepts.
+  workflow_call:
     inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
+      iteration_field_name:
+        description: "The iteration field name as configured in your project settings."
         required: true
-        # The data type of the input
+        type: string
+      excluded_statuses:
+        description: "Comma-separated list of statuses. Do not move issues with these statuses."
+        default: "Done"
+        required: false
         type: string
 
 jobs:
   move-to-next-iteration:
+    name: Move to next iteration
+    runs-on: ubuntu-latest
 
-    uses: Odomero/RRProject2023/.github/workflows/move_issues.yml@main
-    with:
-      project_id: 1
-      iteration-field: "Sprint"
-      iteration: last
-      new-iteration: current
-      excluded-statuses: "Done"
-    secrets: inherit
+    steps:
+      - uses: blombard/move-to-next-iteration@v0.5.0
+        with:
+          owner: odomero
+          number: 1
+          # This token is a organization configured token
+          token: ''
+          iteration-field: ${{ inputs.iteration_field_name }}
+          iteration: last
+          new-iteration: current
+          excluded-statuses: ${{ inputs.excluded_statuses }}

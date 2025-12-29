@@ -22,7 +22,7 @@ on:
 jobs:
   move-to-next-iteration:
 
-    uses: odomero/github-workflows/.github/workflows/move_issues.yml@v1.0.0
+    uses: Odomero/RRProject2023/.github/workflows/move_issues.yml@v1.0.0
     with:
       project_id: 1
       iteration-field: "Sprint"

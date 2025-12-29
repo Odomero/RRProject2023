@@ -29,3 +29,4 @@ jobs:
       iteration: last
       new-iteration: current
       excluded-statuses: "Done"
+    secrets: inherit

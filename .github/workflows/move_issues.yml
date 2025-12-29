@@ -7,17 +7,25 @@ name: Move issues
 on:
   workflow_dispatch:
     # Inputs the workflow accepts
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Person to greet'
+        # Default value if no value is explicitly provided
+        default: 'World'
+        # Input has to be provided for the workflow to run
+        required: true
+        # The data type of the input
+        type: string
 
 jobs:
   move-to-next-iteration:
-    name: Move to next iteration
-    runs-on: ubuntu-latest
 
-    steps:
-    - uses: odomero/github-workflows/.github/workflows/move_issues.yml@v1.0.0
-      with:
-        project_id: 1
-        iteration-field: "Sprint"
-        iteration: last
-        new-iteration: current
-        excluded-statuses: "Done"
+    uses: odomero/github-workflows/.github/workflows/move_issues.yml@v1.0.0
+    with:
+      project_id: 1
+      iteration-field: "Sprint"
+      iteration: last
+      new-iteration: current
+      excluded-statuses: "Done"
